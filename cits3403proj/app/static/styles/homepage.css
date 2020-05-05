@@ -1,0 +1,52 @@
+#homepage-section1 {
+  height: 100vh;
+}
+
+.content-box {
+  max-width: 620px;
+  text-align: center;
+  margin: auto;
+  margin-top: 60px;
+}
+
+#image-signup {
+  display: inline-block;
+  max-width: 450px;
+  max-height: 450px;
+}
+
+#signup-h1 {
+  font-size: 63px;
+  font-weight: 600;
+  color: #3c3c72;
+  margin-bottom: 20px;
+}
+
+#signup-p {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+#signup-popup {
+  display: inline-block;
+}
+
+.signup-input {
+  margin: 20px auto;
+  display: block;
+  width: 50%;
+}
+
+#signup {
+  margin: 20px auto;
+  display: block;
+}
+
+#close-form {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  cursor: pointer;
+}
