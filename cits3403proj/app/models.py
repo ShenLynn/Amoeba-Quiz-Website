@@ -1,4 +1,5 @@
 from app import db
+from flask_login import UserMixin
 
 class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -9,3 +10,4 @@ class User(db.Model):
   #How the object is printed
   def __repr__(self): 
     return f"User('{self.username}', '{self.email}')"
+  

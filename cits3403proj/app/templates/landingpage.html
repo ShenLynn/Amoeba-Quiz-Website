@@ -22,12 +22,30 @@
       src="{{ url_for('static', filename='images/signs.svg')}}"
       alt="close"
     />
-    <form action="" method="post" novalidate>
-      {{ form.hidden_tag() }} {{ form.username.label }}<br />
-      {{ form.username(class_="signup-input") }} {{ form.password.label }}<br />
-      {{ form.password(class_="signup-input") }} {{ form.submit(class_="signup")
-      }}
-      <button class="formbutton">Signup</button>
+    <form action="/" method="post">
+      {{ form.hidden_tag()}}
+      <p>
+        {{ form.username.label}}<br />
+        {{ form.username(class_="signup-input") }}<br />
+        {% for error in form.username.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.password.label }}<br />
+        {{ form.password(class_="signup-input") }}<br />
+        {% for error in form.username.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>
+        {{ form.email.label}}<br />
+        {{form.email(class_="signup-input")}}<br />
+      </p>
+      <p>{{ form.submit(class_="signup") }}</p>
+      {% for error in form.username.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
     </form>
   </div>
 </div>
