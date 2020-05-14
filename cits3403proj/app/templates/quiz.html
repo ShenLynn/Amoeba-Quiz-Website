@@ -1,0 +1,92 @@
+{% extends "template.html" %} {% block head %}
+<link
+  href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Roboto:ital,wght@0,300;0,500;0,700;1,400;1,500&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename = 'styles/content.css')}}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='styles/quizstyle.css')}}"
+/>
+
+{% endblock %} {% block content %}
+<div class="container">
+  <div id="question-container" class="hide">
+    <div id="question">Question</div>
+    <div id="answer-buttons" class="btn-grid"></div>
+  </div>
+  <div class="controls">
+    <button id="start-btn" class="start-btn btn">Start</button>
+    <button id="next-btn" class="next-btn btn hide">Next</button>
+  </div>
+</div>
+<script>
+  const questionset = JSON.parse('{{questionset | tojson | safe}}');
+  const startbutton = document.getElementById('start-btn');
+  const nextbutton = document.getElementById('next-btn');
+  const questioncontainer = document.getElementById('question-container');
+  const answerButtons = document.getElementById('answer-buttons');
+  let score = 0;
+  let questionNo = 0;
+
+  startbutton.addEventListener('click', startGame);
+  function startGame() {
+    startbutton.classList.add('hide');
+    nextbutton.classList.remove('hide');
+    questioncontainer.classList.remove('hide');
+    setQuestions(questionset, questionNo);
+  }
+
+  //Sets the buttons to equal the questions and answers
+  //takes an array of questions, and the questionnumber
+  function setQuestions(questionset, index) {
+    question.innerHTML = questionset.questions[index].question;
+    //Get the correct answer
+    let i = questionset.questions[index].answerindex;
+    let questionanswer = questionset.questions[index].answers[i];
+
+    questionset.questions[index].answers.forEach(answer => {
+      newbutton = document.createElement('button');
+      newbutton.innerHTML = answer;
+      answerButtons.appendChild(newbutton);
+      newbutton.classList.add('btn');
+      if (answer === questionanswer) {
+        newbutton.dataset.correct = true;
+        score++;
+      }
+      newbutton.addEventListener('click', answerQuestion);
+    });
+    questionNo++;
+  }
+
+  function resetQuestions() {
+    Array.from(answerButtons.children).forEach(button => {
+      button.remove();
+    });
+  }
+
+  //when you click the next button
+  nextbutton.addEventListener('click', nextQuestion);
+  function nextQuestion() {
+    resetQuestions();
+    setQuestions(questionset, questionNo);
+    questionNo++;
+  }
+  //when you click on an answer
+
+  function answerQuestion() {
+    Array.from(answerButtons.children).forEach(button => {
+      if (button.dataset.correct) {
+        button.classList.add('correct');
+      } else {
+        button.classList.add('wrong');
+      }
+    });
+  }
+</script>
+{% endblock %}
