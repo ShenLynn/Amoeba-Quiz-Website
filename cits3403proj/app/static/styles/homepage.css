@@ -37,7 +37,8 @@
   width: 50%;
 }
 
-#signup {
+.formbutton {
+  color: black;
   margin: 20px auto;
   display: block;
 }

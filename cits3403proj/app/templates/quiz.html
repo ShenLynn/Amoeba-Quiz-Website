@@ -1,0 +1,113 @@
+{% extends "template.html" %} {% block head %}
+<link
+  href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Roboto:ital,wght@0,300;0,500;0,700;1,400;1,500&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename = 'styles/content.css')}}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='styles/quizstyle.css')}}"
+/>
+
+{% endblock %} {% block content %}
+<div class="container">
+  <div id="question-container" class="hide">
+    <div id="question">Question</div>
+    <div id="answer-buttons" class="btn-grid"></div>
+  </div>
+  <div class="controls">
+    <button id="start-btn" class="start-btn btn">Start</button>
+    <button id="next-btn" class="next-btn btn hide">Next</button>
+  </div>
+</div>
+<script>
+   const questionset = JSON.parse('{{questionset | tojson | safe}}');
+  const questioncount = questionset.questions.length;
+  let score = 0;
+  let questionNo = 0;
+
+  //Control buttons
+  const startbutton = document.getElementById('start-btn');
+  const nextbutton = document.getElementById('next-btn');
+  const endbutton = document.getElementById('end-btn');
+  const questioncontainer = document.getElementById('question-container');
+  const answerButtons = document.getElementById('answer-buttons');
+
+  startbutton.addEventListener('click', startGame);
+  function startGame() {
+    startbutton.classList.add('hide');
+    nextbutton.classList.remove('hide');
+    questioncontainer.classList.remove('hide');
+    setQuestions(questionset, questionNo);
+  }
+
+  //Sets the buttons to equal the questions and answers
+  //takes an array of questions, and the questionnumber
+  function setQuestions(questionset, index) {
+    if (index == questioncount) {
+      nextbutton.classList.add('hide');
+      endbutton.classList.remove('hide');
+      displayScore();
+      console.log('here');
+      return;
+    }
+    question.innerHTML = questionset.questions[index].question;
+
+    //Get the correct answer
+    let i = questionset.questions[index].answerindex;
+    let questionanswer = questionset.questions[index].answers[i];
+
+    questionset.questions[index].answers.forEach(answer => {
+      newbutton = document.createElement('button');
+      newbutton.innerHTML = answer;
+      answerButtons.appendChild(newbutton);
+      newbutton.classList.add('btn');
+      if (answer === questionanswer) {
+        newbutton.dataset.correct = true;
+        score++;
+      }
+      newbutton.addEventListener('click', answerQuestion);
+    });
+    questionNo++;
+  }
+
+  //removes question buttons
+  function removeQuestions() {
+    Array.from(answerButtons.children).forEach(button => {
+      button.remove();
+    });
+  }
+
+  //when you click the next button
+  nextbutton.addEventListener('click', nextQuestion);
+  function nextQuestion() {
+    removeQuestions();
+    setQuestions(questionset, questionNo);
+  }
+
+  //when you click on an answer
+  function answerQuestion() {
+    Array.from(answerButtons.children).forEach(button => {
+      if (button.dataset.correct) {
+        button.classList.add('correct');
+      } else {
+        button.classList.add('wrong');
+      }
+    });
+  }
+
+  //display score when end button is clicked
+  function displayScore() {
+    removeQuestions();
+    question.innerHTML = "Your score is:";
+    score = document.createElement('p');
+    score.innerHTML =
+  }
+</script>
+</script>
+{% endblock %}
