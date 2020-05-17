@@ -15,31 +15,24 @@
 />
 
 {% endblock %} {% block content %}
-<div class="content">
-  <div class="container">
-    <div id="question-container" class="hide">
-      <div id="question">Question</div>
-      <div id="answer-buttons" class="btn-grid"></div>
-    </div>
-    <div class="controls">
-      <button id="start-btn" class="start-btn btn">Start</button>
-      <button id="next-btn" class="next-btn btn hide">Next</button>
-      <button id="end-btn" class="end-btn btn hide">End</button>
-    </div>
+<div class="container">
+  <div id="question-container" class="hide">
+    <div id="question">Question</div>
+    <div id="answer-buttons" class="btn-grid"></div>
+  </div>
+  <div class="controls">
+    <button id="start-btn" class="start-btn btn">Start</button>
+    <button id="next-btn" class="next-btn btn hide">Next</button>
   </div>
 </div>
 <script>
   const questionset = JSON.parse('{{questionset | tojson | safe}}');
-  const questioncount = questionset.questions.length;
-  let score = 0;
-  let questionNo = 0;
-
-  //Control buttons
   const startbutton = document.getElementById('start-btn');
   const nextbutton = document.getElementById('next-btn');
-  const endbutton = document.getElementById('end-btn');
   const questioncontainer = document.getElementById('question-container');
   const answerButtons = document.getElementById('answer-buttons');
+  let score = 0;
+  let questionNo = 0;
 
   startbutton.addEventListener('click', startGame);
   function startGame() {
@@ -52,15 +45,7 @@
   //Sets the buttons to equal the questions and answers
   //takes an array of questions, and the questionnumber
   function setQuestions(questionset, index) {
-    if (index == questioncount) {
-      nextbutton.classList.add('hide');
-      endbutton.classList.remove('hide');
-      displayScore();
-      console.log('here');
-      return;
-    }
     question.innerHTML = questionset.questions[index].question;
-
     //Get the correct answer
     let i = questionset.questions[index].answerindex;
     let questionanswer = questionset.questions[index].answers[i];
@@ -79,8 +64,7 @@
     questionNo++;
   }
 
-  //removes question buttons
-  function removeQuestions() {
+  function resetQuestions() {
     Array.from(answerButtons.children).forEach(button => {
       button.remove();
     });
@@ -89,11 +73,12 @@
   //when you click the next button
   nextbutton.addEventListener('click', nextQuestion);
   function nextQuestion() {
-    removeQuestions();
+    resetQuestions();
     setQuestions(questionset, questionNo);
+    questionNo++;
   }
-
   //when you click on an answer
+
   function answerQuestion() {
     Array.from(answerButtons.children).forEach(button => {
       if (button.dataset.correct) {
@@ -102,14 +87,6 @@
         button.classList.add('wrong');
       }
     });
-  }
-
-  //display score when end button is clicked
-  function displayScore() {
-    removeQuestions();
-    question.innerHTML = "Your score is:";
-    score = document.createElement('p');
-    score.innerHTML =
   }
 </script>
 {% endblock %}

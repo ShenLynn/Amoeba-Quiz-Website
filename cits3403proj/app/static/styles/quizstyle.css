@@ -4,15 +4,12 @@
   --hue-correct: 145;
 }
 
-.content {
+body {
   --hue: var(--hue-neutral);
   padding: 0;
   margin: 0;
   width: 100vw;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100vh;
 }
 
 body.correct {

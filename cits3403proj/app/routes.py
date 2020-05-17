@@ -1,6 +1,6 @@
 from flask import render_template, redirect, json
 from app import forms
-from app.forms import SignupForm
+from app.forms import SignupForm, QuizForm
 from app import app
 
 @app.route('/', methods=['GET', 'POST'])
@@ -17,6 +17,7 @@ def index():
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def quiz():
+  form = QuizForm()
 
   questionset = {
     "questions":[
@@ -26,7 +27,7 @@ def quiz():
         "Shen",
         "lawrence",
         "mary",
-        "peter"
+        "bob"
       ],
     "answerindex": 0
     },
@@ -34,22 +35,12 @@ def quiz():
     "question": "Favourite colour?",
       "answers":[
         "Red",
-        "yellow",
+        "blue",
         "purple",
         "bob"
       ],
-    "answerindex": 3
-    },
-    {
-    "question": "3+4",
-      "answers":[
-        "1",
-        "7",
-        "9",
-        "0"
-      ],
-    "answerindex": 1
+    "answerindex": 4
     },
   ]
   }
-  return render_template('quiz.html', questionset=questionset)
+  return render_template('quiz.html', form=form, questionset=questionset)
