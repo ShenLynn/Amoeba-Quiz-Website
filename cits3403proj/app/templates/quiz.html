@@ -15,18 +15,27 @@
 />
 
 {% endblock %} {% block content %}
-<div class="container">
-  <div id="question-container" class="hide">
-    <div id="question">Question</div>
-    <div id="answer-buttons" class="btn-grid"></div>
+<div class="quizcontent">
+  <div class="timer">
+    <div>
+      <span id="minutes">00</span>:
+      <span id="seconds">00</span>
+    </div>
   </div>
-  <div class="controls">
-    <button id="start-btn" class="start-btn btn">Start</button>
-    <button id="next-btn" class="next-btn btn hide">Next</button>
+  <div class="container">
+    <div id="question-container" class="hide">
+      <div id="question">Question</div>
+      <div id="answer-buttons" class="btn-grid"></div>
+    </div>
+    <div class="controls">
+      <button id="start-btn" class="start-btn btn">Start</button>
+      <button id="next-btn" class="next-btn btn hide">Next</button>
+      <button id="end-btn" class="next-btn btn hide">End</button>
+    </div>
   </div>
 </div>
 <script>
-   const questionset = JSON.parse('{{questionset | tojson | safe}}');
+  const questionset = JSON.parse('{{questionset | tojson | safe}}');
   const questioncount = questionset.questions.length;
   let score = 0;
   let questionNo = 0;
@@ -37,6 +46,13 @@
   const endbutton = document.getElementById('end-btn');
   const questioncontainer = document.getElementById('question-container');
   const answerButtons = document.getElementById('answer-buttons');
+  const controlsdiv = document.getElementsByClassName('controls')[0];
+
+  var timeleft = 50;
+  const starttime = 50;
+  const questiontime = 5;
+  secondsdiv = document.getElementById('seconds');
+  minutesdiv = document.getElementById('minutes');
 
   startbutton.addEventListener('click', startGame);
   function startGame() {
@@ -49,6 +65,9 @@
   //Sets the buttons to equal the questions and answers
   //takes an array of questions, and the questionnumber
   function setQuestions(questionset, index) {
+    timeleft = questiontime;
+
+    //if there aren't anymore questions
     if (index == questioncount) {
       nextbutton.classList.add('hide');
       endbutton.classList.remove('hide');
@@ -101,13 +120,29 @@
     });
   }
 
-  //display score when end button is clicked
+  //display score at the end of the quiz
   function displayScore() {
     removeQuestions();
-    question.innerHTML = "Your score is:";
+    clearInterval(mytimer);
+    question.innerHTML = 'Your score is:';
     score = document.createElement('p');
-    score.innerHTML =
+    score.innerHTML = timeleft;
   }
-</script>
+
+  var mytimer = setInterval(setTimer, 1000);
+  function setTimer() {
+    secondsdiv.innerHTML = timeleft % 60;
+    timeleft--;
+    console.log(timeleft);
+    if (timeleft < 0) {
+      Array.from(controlsdiv.children).forEach(button => {
+        if (!button.classList.contains('hide')) {
+          console.log('clicckingbutton');
+          button.click();
+        }
+      });
+      return;
+    }
+  }
 </script>
 {% endblock %}

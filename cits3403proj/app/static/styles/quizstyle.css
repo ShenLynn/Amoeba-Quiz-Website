@@ -20,6 +20,14 @@ body.wrong {
   --hue: var(--hue-wrong);
 }
 
+.quizcontent {
+  width: 100vw;
+  height: 80vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
 .btn-grid {
   display: grid;
   grid-template-columns: repeat(2, auto);

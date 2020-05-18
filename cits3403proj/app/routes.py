@@ -1,6 +1,6 @@
 from flask import render_template, redirect, json
 from app import forms
-from app.forms import SignupForm, QuizForm
+from app.forms import SignupForm
 from app import app
 
 @app.route('/', methods=['GET', 'POST'])
@@ -17,7 +17,6 @@ def index():
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def quiz():
-  form = QuizForm()
 
   questionset = {
     "questions":[
@@ -43,4 +42,4 @@ def quiz():
     },
   ]
   }
-  return render_template('quiz.html', form=form, questionset=questionset)
+  return render_template('quiz.html', questionset=questionset)
