@@ -21,24 +21,33 @@ def quiz():
   questionset = {
     "questions":[
     {
-    "question": "What is your name?",
+    "question": "Which of these is a virus?",
       "answers":[
-        "Shen",
-        "lawrence",
-        "mary",
-        "bob"
+        "Staphylococcus",
+        "leukemia",
+        "Scoliosis",
+        "chicken pox"
       ],
-    "answerindex": 0
+    "answerindex": 3
     },
     {
-    "question": "Favourite colour?",
+    "question": "Among these elements, which one has the highest atomic mass?",
       "answers":[
-        "Red",
-        "blue",
-        "purple",
-        "bob"
+        "Helium",
+        "Sodium",
+        "Uranium",
+        "Copper"
       ],
-    "answerindex": 4
+    "answerindex": 2
+    },
+    {
+    "question": " Which of these has the longest wave length?",
+      "answers":[
+        "Radio waves",
+        "Visible light",
+        "X-rays",
+      ],
+    "answerindex": 0
     },
   ]
   }

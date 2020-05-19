@@ -3,7 +3,7 @@
   margin: 0;
   list-style: none;
   text-decoration: none;
-  font-family: "roboto", sans-serif;
+  font-family: 'roboto', sans-serif;
 }
 
 body {
@@ -23,7 +23,7 @@ header {
 }
 
 h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
 }
 
 button {
@@ -37,8 +37,7 @@ button {
 }
 
 button:hover {
-  background: #ea9fa0;
-  color: black;
+  background-color: #3e3e77d6;
   transition: 0.4s;
 }
 

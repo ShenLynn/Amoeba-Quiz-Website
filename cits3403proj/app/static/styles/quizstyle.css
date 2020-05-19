@@ -1,11 +1,11 @@
 :root {
-  --hue-neutral: 2001;
+  --hue-neutral: #99dbb4;
   --hue-wrong: 0;
-  --hue-correct: 145;
+  --hue-correct: #b0db7d;
 }
 
 body {
-  --hue: var(--hue-neutral);
+  border-radius: 20px;
   padding: 0;
   margin: 0;
   width: 100vw;
@@ -26,6 +26,7 @@ body.wrong {
   display: grid;
   justify-content: center;
   align-content: center;
+  position: relative;
 }
 
 .btn-grid {
@@ -36,8 +37,6 @@ body.wrong {
 }
 
 .btn {
-  --hue: var(--hue-neutral);
-  background-color: hsl(var(--hue), 100%, 50%);
   border: 1px solid hsl(var(--hue), 100%, 30%);
   padding: 5px 10px;
   outline: none;
@@ -55,12 +54,34 @@ body.wrong {
 }
 
 .container {
-  background-color: white;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--hue-correct) 40%,
+    var(--hue-neutral) 100%
+  );
   width: 800px;
-  max-width: 80%;
-  border-radius: 5px;
+  max-width: 100%;
   padding: 10px;
-  box-shadow: 0 0 10px 2px;
+  height: 300px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px rgba($gray, 10%);
+  font-size: 24px;
+}
+
+#description {
+  padding: 20px;
+  font-size: 30px;
+}
+
+.timer {
+  text-align: center;
+  margin: 20 auto 20;
+}
+
+#minutes,
+#seconds {
+  font-size: 48px;
+  color: white;
 }
 
 .start-btn,

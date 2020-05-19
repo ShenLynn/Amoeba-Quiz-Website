@@ -13,19 +13,32 @@
   type="text/css"
   href="{{ url_for('static', filename='styles/quizstyle.css')}}"
 />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='styles/amoeba.css')}}"
+/>
 
 {% endblock %} {% block content %}
 <div class="quizcontent">
-  <div class="timer">
-    <div>
-      <span id="minutes">00</span>:
-      <span id="seconds">00</span>
-    </div>
+  <div class="amoeba_ball" id="amoebabody">
+    <div class="amoeba_eye eye_left"></div>
+    <div class="amoeba_eye eye_right"></div>
+    <div class="amoeba_smile"></div>
+    <div class="style amoeba_style_stripes amoeba_none" id="stripes"></div>
+    <div class="style amoeba_style_spots amoeba_none" id="spots"></div>
   </div>
   <div class="container">
+    <p id="description">
+      You will be given 5 seconds to answer each question, good luck!
+    </p>
     <div id="question-container" class="hide">
       <div id="question">Question</div>
       <div id="answer-buttons" class="btn-grid"></div>
+    </div>
+    <div class="timer">
+      <span id="minutes">00</span>:
+      <span id="seconds">00</span>
     </div>
     <div class="controls">
       <button id="start-btn" class="start-btn btn">Start</button>
@@ -39,13 +52,15 @@
   const questioncount = questionset.questions.length;
   let score = 0;
   let questionNo = 0;
+  var selectedanswerbutton = 0;
 
   //Control buttons
+  const description = document.getElementById('description');
   const startbutton = document.getElementById('start-btn');
   const nextbutton = document.getElementById('next-btn');
   const endbutton = document.getElementById('end-btn');
   const questioncontainer = document.getElementById('question-container');
-  const answerButtons = document.getElementById('answer-buttons');
+  const answerbuttons = document.getElementById('answer-buttons');
   const controlsdiv = document.getElementsByClassName('controls')[0];
 
   var timeleft = 50;
@@ -59,6 +74,7 @@
     startbutton.classList.add('hide');
     nextbutton.classList.remove('hide');
     questioncontainer.classList.remove('hide');
+    description.classList.add('hide');
     setQuestions(questionset, questionNo);
   }
 
@@ -77,18 +93,19 @@
     }
     question.innerHTML = questionset.questions[index].question;
 
-    //Get the correct answer
+    //get the correct answer
     let i = questionset.questions[index].answerindex;
     let questionanswer = questionset.questions[index].answers[i];
 
+    //append the questionbuttons to the container
     questionset.questions[index].answers.forEach(answer => {
       newbutton = document.createElement('button');
       newbutton.innerHTML = answer;
-      answerButtons.appendChild(newbutton);
+      answerbuttons.appendChild(newbutton);
       newbutton.classList.add('btn');
       if (answer === questionanswer) {
+        console.log('this is the right answer');
         newbutton.dataset.correct = true;
-        score++;
       }
       newbutton.addEventListener('click', answerQuestion);
     });
@@ -97,7 +114,7 @@
 
   //removes question buttons
   function removeQuestions() {
-    Array.from(answerButtons.children).forEach(button => {
+    Array.from(answerbuttons.children).forEach(button => {
       button.remove();
     });
   }
@@ -105,28 +122,30 @@
   //when you click the next button
   nextbutton.addEventListener('click', nextQuestion);
   function nextQuestion() {
+    if (selectedanswerbutton != 0) {
+      if (selectedanswerbutton.dataset.correct) {
+        score++;
+        console.log('youreright');
+      }
+    }
     removeQuestions();
     setQuestions(questionset, questionNo);
+    selectedanswerbutton = 0;
   }
 
   //when you click on an answer
-  function answerQuestion() {
-    Array.from(answerButtons.children).forEach(button => {
-      if (button.dataset.correct) {
-        button.classList.add('correct');
-      } else {
-        button.classList.add('wrong');
-      }
-    });
+  function answerQuestion(e) {
+    selectedanswerbutton = e.target;
+    e.target.classList.add('selected');
   }
 
   //display score at the end of the quiz
   function displayScore() {
     removeQuestions();
     clearInterval(mytimer);
-    question.innerHTML = 'Your score is:';
-    score = document.createElement('p');
-    score.innerHTML = timeleft;
+    description.innerHTML = 'Your score is:' + score;
+    description.classList.remove('hide');
+    questioncontainer.classList.add('hide');
   }
 
   var mytimer = setInterval(setTimer, 1000);
