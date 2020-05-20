@@ -9,10 +9,25 @@
   margin-top: 60px;
 }
 
-#image-signup {
+#amoeba_box {
+  margin-top: 120px;
+  width: 100%;
+}
+
+#amoeba_box div {
   display: inline-block;
-  max-width: 450px;
-  max-height: 450px;
+}
+
+.amoeba_box_child {
+  transform: scale(0.7);
+}
+
+#amoeba1 {
+  background-color: #ff8989;
+}
+
+#amoeba3 {
+  background-color: #ccd9cc;
 }
 
 #signup-h1 {
@@ -27,7 +42,7 @@
   font-size: 20px;
 }
 
-#signup-popup {
+#signupbutton-popup {
   display: inline-block;
 }
 

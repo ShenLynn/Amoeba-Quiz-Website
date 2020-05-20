@@ -14,6 +14,12 @@
   href="{{ url_for('static', filename='styles/homepage.css')}}"
 />
 
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='styles/amoeba.css')}}"
+/>
+
 {% endblock %} {% block content %}
 <div class="popup">
   <div class="popup-content">
@@ -51,28 +57,63 @@
 </div>
 <div id="homepage-section1">
   <div class="content-box">
-    <img
-      id="image-signup"
-      src="{{ url_for('static', filename='images/signup.png')}}"
-      alt="girl-computer"
-    />
-    <h1 id="signup-h1">Fun Quizzes For Everyone!</h1>
+    <h1 id="signup-h1">Find your amoeba today :)</h1>
     <p id="signup-p">
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
       veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
       commodo consequat. Duis aute irure dolor in.
     </p>
-    <button id="signup-popup">Get Started</button>
+    <div id="amoeba_box">
+      <div class="amoeba_box_child">
+        <div class="amoeba_ball" id="amoeba1">
+          <div class="amoeba_eye eye_left"></div>
+          <div class="amoeba_eye eye_right"></div>
+          <div class="amoeba_smile"></div>
+          <div
+            class="style amoeba_style_stripes amoeba_none"
+            id="stripes"
+          ></div>
+          <div class="style amoeba_style_spots amoeba_none" id="spots"></div>
+        </div>
+      </div>
+      <div class="amoeba_box_child">
+        <div class="amoeba_ball" id="amoeba2">
+          <div class="amoeba_eye eye_left"></div>
+          <div class="amoeba_eye eye_right"></div>
+          <div class="amoeba_smile"></div>
+          <div
+            class="style amoeba_style_stripes amoeba_none"
+            id="stripes"
+          ></div>
+          <div class="style amoeba_style_spots amoeba_none" id="spots"></div>
+        </div>
+      </div>
+      <div class="amoeba_box_child">
+        <div class="amoeba_ball" id="amoeba3">
+          <div class="amoeba_eye eye_left"></div>
+          <div class="amoeba_eye eye_right"></div>
+          <div class="amoeba_smile"></div>
+          <div
+            class="style amoeba_style_stripes amoeba_none"
+            id="stripes"
+          ></div>
+          <div class="style amoeba_style_spots amoeba_none" id="spots"></div>
+        </div>
+      </div>
+    </div>
+    <button id="signupbutton-popup">Get Started</button>
   </div>
-</div>
 
-<script>
-  document.getElementById("signup-popup").addEventListener("click", function() {
-    document.querySelector(".popup").style.display = "flex";
-  });
-  document.getElementById("close-form").addEventListener("click", function() {
-    document.querySelector(".popup").style.display = "none";
-  });
-</script>
-{% endblock %}
+  <script>
+    document
+      .getElementById('signup-popup')
+      .addEventListener('click', function() {
+        document.querySelector('.popup').style.display = 'flex';
+      });
+    document.getElementById('close-form').addEventListener('click', function() {
+      document.querySelector('.popup').style.display = 'none';
+    });
+  </script>
+  {% endblock %}
+</div>
