@@ -1,0 +1,63 @@
+.amoeba_ball {
+  height: 200px;
+  width: 200px;
+  background-color: #638be2;
+
+  /* make it round */
+  border-radius: 50%;
+
+  /* move it to the middle, squish it down a bit */
+  transform: scale(1, 0.9);
+  position: relative;
+  margin: 0 auto 0;
+  animation: bounce 1s ease-in infinite;
+}
+
+@keyframes bounce {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.amoeba_eye {
+  height: 15px;
+  width: 15px;
+  background-color: black;
+
+  /* make it round */
+  border-radius: 50%;
+
+  /* move it to the middle, squish it down a bit */
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 23%;
+  z-index: 2;
+}
+
+.eye_left {
+  left: 33%;
+  transform: skewX(-20deg);
+  z-index: 2;
+}
+
+.eye_right {
+  right: 33%;
+  transform: skewX(20deg);
+  z-index: 2;
+}
+
+.amoeba_smile {
+  /* make a semi-circle with border */
+  height: 15px;
+  width: 30px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: 3px solid black;
+  border-top: 0;
+
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 43%;
+  z-index: 2;
+}

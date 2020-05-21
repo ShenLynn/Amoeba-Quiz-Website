@@ -1,12 +1,31 @@
 #homepage-section1 {
   height: 100vh;
+  background-color: #f7ebe4;
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+}
+#homepage-section2 {
+  height: 100vh;
+  background-color: #9ccef9;
+  border-top-left-radius: 50% 20%;
+  border-top-right-radius: 50% 20%;
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+}
+#homepage-section3 {
+  height: 100vh;
+  background-color: #ccd9cc;
+  border-top-left-radius: 50% 20%;
+  border-top-right-radius: 50% 20%;
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
 }
 
 .content-box {
   max-width: 620px;
   text-align: center;
   margin: auto;
-  margin-top: 60px;
+  padding-top: 50px;
 }
 
 #amoeba_box {
@@ -33,13 +52,14 @@
 #signup-h1 {
   font-size: 63px;
   font-weight: 600;
-  color: #3c3c72;
+  color: #0f1c43;
   margin-bottom: 20px;
 }
 
 #signup-p {
   margin-bottom: 20px;
   font-size: 20px;
+  font-weight: bold;
 }
 
 #signupbutton-popup {
