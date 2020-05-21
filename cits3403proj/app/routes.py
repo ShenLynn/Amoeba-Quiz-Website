@@ -15,6 +15,11 @@ def index():
     return redirect('/index')
   return render_template('landingpage.html', form=form)
 
+@app.route('/login', methods=['POST', 'GET'])
+def signup_login():
+  form = SignupForm()
+  return render_template('signuplogin_page.html', form=form)
+
 @app.route('/quiz', methods=['POST', 'GET'])
 def quiz():
 

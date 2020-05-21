@@ -4,6 +4,7 @@
   list-style: none;
   text-decoration: none;
   font-family: 'roboto', sans-serif;
+  box-sizing: border-box;
 }
 
 body {
@@ -27,7 +28,7 @@ h1 {
   font-family: 'Merriweather', serif;
 }
 
-button {
+button, .formbutton {
   padding: 20px 60px;
   border-radius: 28px;
   border: 0;
@@ -35,11 +36,13 @@ button {
   font-size: 20px;
   font-weight: 500;
   color: #f7ebe4;
+  box-shadow: 0px 8px rgb(61, 90, 153)
 }
 
-button:hover {
+button:hover, .formbutton:hover {
   background-color: #0f1c43;
   transition: 0.4s;
+  cursor: pointer;
 }
 
 .logo {
@@ -83,6 +86,10 @@ p {
   color: #0f1c43;
   font-weight: heavy;
   line-height: 1.5em;
+}
+
+input {
+  border: none;
 }
 
 .footer {

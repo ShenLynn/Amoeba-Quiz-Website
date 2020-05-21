@@ -1,0 +1,129 @@
+{% extends "template.html" %} {% block head %}
+<link
+  href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&family=Roboto:ital,wght@0,300;0,500;0,700;1,400;1,500&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename = 'styles/content.css')}}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='styles/signuplogin.css')}}"
+/>
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='styles/amoeba.css')}}"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{% endblock %} {% block content %}
+<div class="content">
+  <div class="form-container">
+    <div id="sliding-box">
+      <h1 id="login-description">
+        Have an account? Your amoeba misses you
+      </h1>
+      <button id="sliding-login-button">Log In</button>
+      <h1 id="signup-description" class="hide">
+        Sign up today and have your own amoeba!
+      </h1>
+      <button id="sliding-signup-button" class="hide">Sign Up</button>
+    </div>
+      <div id="signup-box">
+        <div class="signup-content">
+          <h1 class="title">
+            Sign up
+          </h1>
+          <form action="/" method="post">
+            {{ form.hidden_tag()}}
+            <p>
+              {{ form.username.label}}<br />
+              {{ form.username(class_="signup-input") }}<br />
+              {% for error in form.username.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+            </p>
+            <p>
+              {{ form.password.label }}<br />
+              {{ form.password(class_="signup-input") }}<br />
+              {% for error in form.username.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+            </p>
+            <p>
+              {{ form.email.label}}<br />
+              {{form.email(class_="signup-input")}}<br />
+            </p>
+            <p>{{ form.submit(class_="formbutton") }}</p>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+          </form>
+        </div>
+      </div>
+      <div id="login-box">
+        <div class="login-content">
+          <h1 class="title">
+            Log In
+          </h1>
+          <form action="/" method="post">
+            {{ form.hidden_tag()}}
+            <p>
+              {{ form.username.label}}<br />
+              {{ form.username(class_="signup-input") }}<br />
+              {% for error in form.username.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+            </p>
+            <p>
+              {{ form.password.label }}<br />
+              {{ form.password(class_="signup-input") }}<br />
+              {% for error in form.username.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+            </p>
+            <p>
+              {{ form.email.label}}<br />
+              {{form.email(class_="signup-input")}}<br />
+            </p>
+            <p>{{ form.submit(class_="signup") }}</p>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $('#sliding-login-button').click(function() {
+      $('#sliding-box').css('transform', 'translateX(-100%)');
+      
+      //hide the login content
+      $('#login-description').addClass('hide');
+      $('#sliding-login-button').addClass('hide');
+
+      //show the signup content
+      $('#signup-description').removeClass('hide');
+      $('#sliding-signup-button').removeClass('hide');
+    });
+
+    $('#sliding-signup-button').click(function() {
+      $('#sliding-box').css('transform', 'translateX(0%)');
+      
+      //hide the signup content
+      $('#signup-description').addClass('hide');
+      $('#sliding-signup-button').addClass('hide');
+
+      //show the login content
+      $('#login-description').removeClass('hide');
+      $('#sliding-login-button').removeClass('hide');
+    });
+  </script>
+  {% endblock %}
+</div>
