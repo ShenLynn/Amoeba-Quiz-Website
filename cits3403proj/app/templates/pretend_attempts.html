@@ -1,0 +1,27 @@
+{% extends "template.html" %}
+{% block content%}
+  <h2>Generate a random Quiz</h2>
+  <form action="", method="post">
+    {{ form1.hidden_tag() }}
+    <p>{{ form1.submit }}</p>
+  </form>
+  <h2>Generate a random Attempt</h2>
+  <form action="", method="post">
+    {{ form2.hidden_tag() }}
+    <p>{{ form2.submit }}</p>
+  </form>
+  <table>
+    <tr>
+      <td>Attempt id</td><td>Quiz Category</td><td>Attempted by</td><td>Attempted on</td><td>Score</td>
+    </tr>
+    {% for a in attempts %}
+    <tr>
+      <td>{{ a.id }}</td>
+      <td>{{ a.quiz.category }}</td>
+      <td>{{ a.user.username }}</td>
+      <td>{{ a.date }}</td>
+      <td>{{ a.score }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
