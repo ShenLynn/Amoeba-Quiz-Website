@@ -60,10 +60,7 @@ def quiz():
     },
   ]
   }
-<<<<<<< HEAD
-  return render_template('quiz.html', questionset=questionset)
-=======
-  return render_template('quiz.html', form=form, questionset=questionset)
+  return render_template('quiz.html',questionset=questionset)
 
 #page for testing functionality of 'attempt' table
 @app.route('/pretendattempts', methods=['GET','POST'])
@@ -77,4 +74,3 @@ def pretend_attempts():
     randomAttempt()
   return render_template('pretend_attempts.html', form1=form1, form2=form2, attempts=allattempts)
 
->>>>>>> bc8612f950db416e1b4de317d64c1095bdda175d
