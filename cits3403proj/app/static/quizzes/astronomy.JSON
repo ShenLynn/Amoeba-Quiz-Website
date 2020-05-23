@@ -1,0 +1,105 @@
+{
+  "questions":
+  [
+    {
+      "question": "It's the closest star to the Sun",
+      "answers": [
+        "Sirius",
+        "Pleiades",
+        "Alpha Centauri",
+        "Polaris"
+      ],
+      "answerindex": 2
+    },
+    {
+      "question": "This is the name for space rocks that survive the fall to Earth's surface",
+      "answers": [
+        "Asteroid",
+        "Comet",
+        "Spaceball",
+        "Meteorite"
+      ],
+      "answerindex": 3
+    },
+    {
+      "question": "Scientists have high hopes for this watery moon of Jupiter",
+      "answers": [
+        "Titan",
+        "Europa",
+        "Ganymede",
+        "Pluto"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "At first his idea that the earth revolved around the sun caused quite a fuss",
+      "answers": [
+        "Kepler",
+        "Galileo",
+        "Copernicus",
+        "Newton"
+      ],
+      "answerindex": 2
+    },
+    {
+      "question": "Stars are born from these gassy clouds",
+      "answers": [
+        "Asteroid belts",
+        "Galaxies",
+        "Nebulae",
+        "Black holes"
+      ],
+      "answerindex": 2
+    },
+    {
+      "question": "This celestial object emits bright beams of light as it spins rapidly, probably lending it its name",
+      "answers": [
+        "Meteor",
+        "Pulsar",
+        "Red dwarf",
+        "Super nova"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "Massive objects like stars and black holes might form one of these hot spirals around it",
+      "answers": [
+        "Accretion disk",
+        "Asteroid belt",
+        "Lava loop",
+        "Galaxy"
+      ],
+      "answerindex": 0
+    },
+    {
+      "question": "This outermost part of the sun's atmosphere is very hard to see, except during a solar eclipse",
+      "answers": [
+        "Crown",
+        "Nucleus",
+        "Stratosphere",
+        "Corona"
+      ],
+      "answerindex": 3
+    },
+    {
+      "question": "Comet tails always appear to be facing this way, due to the evaporation of gas and water",
+      "answers": [
+        "Towards the sun",
+        "Away from the sun",
+        "Backwards",
+        "Away from earth"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "This water serpent is the largest constellation in the sky",
+      "answers": [
+        "Aquarius",
+        "Pisces",
+        "Hydra",
+        "Leo"
+      ],
+      "answerindex": 2
+    }
+  ]
+}

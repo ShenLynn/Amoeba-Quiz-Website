@@ -1,0 +1,105 @@
+{
+  "questions":
+  [
+    {
+      "question": "I'll make him an offer ___ ",
+      "answers": [
+        "too good to be true",
+        "he can't refuse",
+        "better than this",
+        "that stinks"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "Are you crying? There's no crying in ___ !",
+      "answers": [
+        "Neverland",
+        "Disneyland",
+        "Baseball",
+        "Boxing"
+      ],
+      "answerindex": 2
+    },
+    {
+      "question": "Woody to Buzz: 'You are a ___ !",
+      "answers": [
+        "Maggot",
+        "Space ranger",
+        "Toy",
+        "Real one"
+      ],
+      "answerindex": 2
+    },
+    {
+      "question": "He says on the bow of the Titanic: 'I'm the king of the world!'",
+      "answers": [
+        "Jack Bauer",
+        "Jack Dawson",
+        "Da Vinci",
+        "Rose Bukater"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "This title character: 'I am friend of Sarah Connor. Can I see her please?",
+      "answers": [
+        "Running Man",
+        "The Terminator",
+        "Superman",
+        "Batman"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "Joe Pesci in this film: 'I'm funny how, I mean funny like I'm a clown?'",
+      "answers": [
+        "Home Alone",
+        "The Godfather",
+        "Goodfellas",
+        "Lethal Weapon"
+      ],
+      "answerindex": 2
+    },
+    {
+      "question": "This title character wants to 'phone home'",
+      "answers": [
+        "Nemo",
+        "Gilbert Grape",
+        "E.T",
+        "Stitch"
+      ],
+      "answerindex": 0
+    },
+    {
+      "question": "From this film: 'You're gonna need a bigger boat'",
+      "answers": [
+        "Titanic",
+        "Free Willy",
+        "Around the world in 80 days",
+        "Jaws"
+      ],
+      "answerindex": 3
+    },
+    {
+      "question": "Him, hanging from a cliff: 'Brother, help me!'",
+      "answers": [
+        "Sasuke",
+        "Mufasa",
+        "Thor",
+        "Aladdin"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "You'll get your rent when you ___ !",
+      "answers": [
+        "die",
+        "fix this damn door",
+        "eat lead",
+        "ask nicely"
+      ],
+      "answerindex": 1
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "questions":
+  [
+    {
+      "question": "He fell from grace, when he flew too close to the sun",
+      "answers": [
+        "Achilles",
+        "Icarus",
+        "Morpheus",
+        "Daedalus"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "Odin and the rest of norse gods are fated to perish in this catoclysmic event",
+      "answers": [
+        "Apocalypse",
+        "Armageddon",
+        "Jormungand",
+        "Ragnarok"
+      ],
+      "answerindex": 3
+    },
+    {
+      "question": "His cleaning of the stables, was quite a feat",
+      "answers": [
+        "Samson",
+        "Mars",
+        "Hercules",
+        "Aaron"
+      ],
+      "answerindex": 2
+    },
+    {
+      "question": "This deity also has a falcon-head, but was God of kings and the sky",
+      "answers": [
+        "Ra",
+        "Horus",
+        "Hedwig",
+        "Icarus"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "This messenger of the Gods is known by the Romans as",
+      "answers": [
+        "Apollo",
+        "Pluto",
+        "Mercury",
+        "Hermes"
+      ],
+      "answerindex": 3
+    },
+    {
+      "question": "He wasn't as happy as you might think, turning all he touched into gold",
+      "answers": [
+        "Midas",
+        "Minerva",
+        "Herod",
+        "Mars"
+      ],
+      "answerindex": 0
+    },
+    {
+      "question": "He used a shiny mirrored shield to slay the Gorgon Medusa",
+      "answers": [
+        "Percy",
+        "Perseus",
+        "Polynices",
+        "Hephaestus"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "This enourmous wolf had to be chained up, lest his rampaging destroy the world",
+      "answers": [
+        "Remus",
+        "Grendel",
+        "Romulus",
+        "Fenrir"
+      ],
+      "answerindex": 3
+    },
+    {
+      "question": "When he was dipped in the river Styx, his mother may have missed a spot",
+      "answers": [
+        "Hercules",
+        "Achilles",
+        "Goliath",
+        "Paris"
+      ],
+      "answerindex": 1
+    },
+    {
+      "question": "Nothing gets past him, as divine sentry of Asgard",
+      "answers": [
+        "Heimdall",
+        "Thor",
+        "Odin",
+        "Methuselah"
+      ],
+      "answerindex": 0
+    }
+  ]
+}

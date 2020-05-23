@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 @login.user_loader
-def load_user(id):
+def load_user(id): #retrieve the user object representing the current user from the database
   return User.query.get(int(id)) #flask-login uses string for ids. database uses integers for id
 
 class User(UserMixin, db.Model):
@@ -27,7 +27,8 @@ class User(UserMixin, db.Model):
   
 class Quiz(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  category = db.Column(db.String(32), index=True, unique=True)
+  category = db.Column(db.String(32), index=True)
+  quizname = db.Column(db.String(32), index=True, unique=True)
   filename = db.Column(db.String(32),unique=True)
   date_added = db.Column(db.DateTime, index=True, default=datetime.utcnow)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

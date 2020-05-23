@@ -8,15 +8,19 @@ from wtforms import SubmitField
 #function to generate a random quiz entry in quiz table, using an existing user.
 #category = random, 5-15 character string
 def randomQuiz():
-    nameLength = random.randint(5,15)
-    quizname = ""
-    for i in range(0,nameLength):
-      quizname += random.choice(string.ascii_letters)
-    quizfilename = quizname + '.JSON'
-    randuser = random.choice(User.query.all())
-    quiz = Quiz(category=quizname, filename=quizfilename, user_id=randuser.id)
-    db.session.add(quiz)
-    db.session.commit()
+  catLength = random.randint(5, 15)
+  nameLength = random.randint(5,15)
+  catname = ""
+  quizname = ""
+  for i in range(0,catLength):
+    catname += random.choice(string.ascii_letters)
+  for i in range(0,nameLength):
+    quizname += random.choice(string.ascii_letters)
+  quizfilename = quizname + '.JSON'
+  randuser = random.choice(User.query.all())
+  quiz = Quiz(category=catname, quizname=quizname, filename=quizfilename, user_id=randuser.id)
+  db.session.add(quiz)
+  db.session.commit()
 
 #function to generate a random attempt entry in the attempt table, using an existing user and quiz
 def randomAttempt():
@@ -33,7 +37,7 @@ def randomAttempt():
   db.session.commit()
 
 class PretendGenAttempt(FlaskForm):
-  submit = SubmitField('Generate random user attempt')
+  submitAttempt = SubmitField('Generate random user attempt')
 
 class PretendGenQuiz(FlaskForm):
-  submit = SubmitField('Generate a random quiz')
+  submitQuiz = SubmitField('Generate a random quiz')

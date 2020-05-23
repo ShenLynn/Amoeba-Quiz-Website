@@ -1,28 +1,54 @@
-from flask import render_template, flash, redirect, json
+from flask import render_template, flash, redirect, url_for, request, json
 from app import app, forms, db
-from app.forms import SignupForm
+from app.forms import SignupForm, LoginForm
 from app.models import User, Attempt
+from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.urls import url_parse
 
 #import testing module
 from app.testing import randomQuiz, randomAttempt, PretendGenQuiz, PretendGenAttempt
 
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/index')
 def index():
-  form = SignupForm()
-  if form.validate_on_submit():
-    user = User(username=form.username.data, email=form.email.data)
-    user.set_password(form.password.data)
+  return render_template('landingpage.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def signup_login():
+  if current_user.is_authenticated: #do not show the signup/login page to users who are already logged in
+    return redirect(url_for('index'))
+  form1 = SignupForm()
+  form2 = LoginForm()
+
+  #if user submits signup form
+  if form1.submitSignup.data and form1.validate_on_submit():
+    user = User(username=form1.username.data, email=form1.email.data)
+    user.set_password(form1.password.data) #store hash of user's password
     db.session.add(user)
     db.session.commit()
-    flash('You now have access to quizzes!')
-    return redirect('/index')
-  return render_template('landingpage.html', form=form)
+    flash('Thanks for signing up, you can now log in')
+    return redirect(url_for('signup_login'))
+  
+  #if user submits login form
+  if form2.submitLogin.data and form2.validate_on_submit():
+    user = User.query.filter_by(username=form2.username.data).first()
 
-@app.route('/login', methods=['POST', 'GET'])
-def signup_login():
-  form = SignupForm()
-  return render_template('signuplogin_page.html', form=form)
+    #if provided username doesnt exist or incorrect password
+    if user is None or not user.check_password(form2.password.data):
+      flash('Invalid username or password')
+      return redirect(url_for('signup_login'))
+    
+    #else login successful
+    login_user(user) #store the logged in user in current_user
+    next_page = request.args.get('next') #send user to their intended page, if they were redirected due to not logged in
+    if not next_page or url_parse(next_page).netloc != '':
+      next_page = url_for('index')
+    return redirect(next_page) #return user to whatever page they were visiting, but now logged in
+  return render_template('signuplogin_page.html', signForm=form1, logForm=form2)
+
+@app.route('/logout')
+def logout():
+  logout_user()
+  return redirect(url_for('index'))
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def quiz():
@@ -60,10 +86,7 @@ def quiz():
     },
   ]
   }
-<<<<<<< HEAD
   return render_template('quiz.html', questionset=questionset)
-=======
-  return render_template('quiz.html', form=form, questionset=questionset)
 
 #page for testing functionality of 'attempt' table
 @app.route('/pretendattempts', methods=['GET','POST'])
@@ -71,10 +94,12 @@ def pretend_attempts():
   form1 = PretendGenQuiz()
   form2 = PretendGenAttempt()
   allattempts = Attempt.query.all()
-  if form1.validate_on_submit():
+  if form1.submitQuiz.data and form1.validate_on_submit():
     randomQuiz()
-  if form2.validate_on_submit():
+  elif form2.submitAttempt.data and form2.validate_on_submit():
     randomAttempt()
   return render_template('pretend_attempts.html', form1=form1, form2=form2, attempts=allattempts)
 
->>>>>>> bc8612f950db416e1b4de317d64c1095bdda175d
+@app.route('/personal')
+def personal():
+  return render_template('personal.html')

@@ -1,0 +1,6 @@
+{% extends "template.html" %}
+
+{% block content %}
+<h2>Greetings, {{ current_user.username }}</h2>
+<p>From all of the team at Amoeba, we hope you enjoy your stay. Is your email still {{ current_user.email }}?</p>
+{% endblock %}

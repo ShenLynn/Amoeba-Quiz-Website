@@ -31,6 +31,11 @@
           <a>LEADERBOARDS</a>
           <a>TOURNAMENT</a>
           <a>STORE</a>
+          {% if current_user.is_anonymous%}
+          <a href="{{ url_for('signup_login') }}">LOGIN/SIGNUP</a>
+          {% else %}
+          <a href="{{ url_for('logout') }}">LOGOUT</a>
+          {% endif %}
         </u1>
       </div>
     </header>

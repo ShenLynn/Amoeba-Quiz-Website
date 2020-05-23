@@ -39,30 +39,30 @@
           <h1 class="title">
             Sign up
           </h1>
-          <form action="/" method="post">
-            {{ form.hidden_tag()}}
+          <form action="" method="post">
+            {{ signForm.hidden_tag()}}
             <p>
-              {{ form.username.label}}<br />
-              {{ form.username(class_="signup-input") }}<br />
-              {% for error in form.username.errors %}
+              {{ signForm.username.label}}<br />
+              {{ signForm.username(class_="signup-input") }}<br />
+              {% for error in signForm.username.errors %}
               <span style="color: red;">[{{ error }}]</span>
               {% endfor %}
             </p>
             <p>
-              {{ form.password.label }}<br />
-              {{ form.password(class_="signup-input") }}<br />
-              {% for error in form.username.errors %}
+              {{ signForm.password.label }}<br />
+              {{ signForm.password(class_="signup-input") }}<br />
+              {% for error in signForm.password.errors %}
               <span style="color: red;">[{{ error }}]</span>
               {% endfor %}
             </p>
             <p>
-              {{ form.email.label}}<br />
-              {{form.email(class_="signup-input")}}<br />
-            </p>
-            <p>{{ form.submit(class_="formbutton") }}</p>
-            {% for error in form.username.errors %}
+              {{ signForm.email.label}}<br />
+              {{signForm.email(class_="signup-input")}}<br />
+              {% for error in signForm.email.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
+            </p>
+            <p>{{ signForm.submitSignup(class_="formbutton") }}</p>
           </form>
         </div>
       </div>
@@ -71,30 +71,23 @@
           <h1 class="title">
             Log In
           </h1>
-          <form action="/" method="post">
-            {{ form.hidden_tag()}}
+          <form action="" method="post">
+            {{ logForm.hidden_tag()}}
             <p>
-              {{ form.username.label}}<br />
-              {{ form.username(class_="signup-input") }}<br />
-              {% for error in form.username.errors %}
+              {{ logForm.username.label}}<br />
+              {{ logForm.username(class_="signup-input") }}<br />
+              {% for error in logForm.username.errors %}
               <span style="color: red;">[{{ error }}]</span>
               {% endfor %}
             </p>
             <p>
-              {{ form.password.label }}<br />
-              {{ form.password(class_="signup-input") }}<br />
-              {% for error in form.username.errors %}
+              {{ logForm.password.label }}<br />
+              {{ logForm.password(class_="signup-input") }}<br />
+              {% for error in logForm.password.errors %}
               <span style="color: red;">[{{ error }}]</span>
               {% endfor %}
             </p>
-            <p>
-              {{ form.email.label}}<br />
-              {{form.email(class_="signup-input")}}<br />
-            </p>
-            <p>{{ form.submit(class_="signup") }}</p>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
+            <p>{{ logForm.submitLogin(class_="signup") }}</p>
           </form>
         </div>
       </div>
