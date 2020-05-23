@@ -1,5 +1,5 @@
 from flask import Flask
-from config import Config
+from config import Config, TestConfig
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
@@ -10,6 +10,6 @@ db = SQLAlchemy(app) #Creates database object
 migrate = Migrate(app, db)
 login = LoginManager(app)
 
-from app import routes, models
+from app import routes, models, errors
 
 
