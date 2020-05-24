@@ -103,3 +103,4 @@ def pretend_attempts():
 @app.route('/personal')
 def personal():
   return render_template('personal.html')
+
