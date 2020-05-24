@@ -35,9 +35,15 @@ class Quiz(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   attempts = db.relationship('Attempt', backref = 'quiz', lazy = 'dynamic')
 
+  def __repr__(self): 
+    return f"Quiz('{self.quizname}', '{self.category}')"
+
 class Attempt(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'))
   score = db.Column(db.Integer, index=True)
   date = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+  def __repr__(self): 
+    return f"Attempt('{self.quiz.quizname}', '{self.user.username}')"
