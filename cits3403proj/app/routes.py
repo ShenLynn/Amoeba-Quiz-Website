@@ -1,14 +1,16 @@
 from flask import render_template, flash, redirect, url_for, request, json
 from app import app, forms, db
 from app.forms import SignupForm, LoginForm
-from app.models import User, Attempt
+from app.models import User, Attempt, Quiz
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
+from sqlalchemy import distinct
 
 #import testing module
 from app.testing import randomQuiz, randomAttempt, PretendGenQuiz, PretendGenAttempt
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+@app.route('/index')
 def index():
   return render_template('landingpage.html')
 
@@ -87,6 +89,18 @@ def quiz():
   ]
   }
   return render_template('quiz.html', questionset=questionset)
+
+#quiz categories page
+@app.route('/categories', methods=['GET', 'POST'])
+def categories():
+  #retrieve distinct list of categories available
+  catlist = [cat[0] for cat in db.session.query(distinct(Quiz.category))]
+  #dictionary to map category to list of its quizes
+  quizdic = {}
+  for category in catlist:
+    quizdic[category] = Quiz.query.filter_by(category=category).all()
+
+  return render_template('categories.html', catlist=catlist, quizdic=quizdic)
 
 #page for testing functionality of 'attempt' table
 @app.route('/pretendattempts', methods=['GET','POST'])
