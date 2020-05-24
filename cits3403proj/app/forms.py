@@ -12,3 +12,6 @@ class LoginForm(FlaskForm):
   username = StringField('Username', validators=[DataRequired()])
   password = PasswordField('Password', validators=[DataRequired()])
   submitLogin = SubmitField('Log in')
+
+class DeleteQuizForm(FlaskForm):
+  submitDelete = SubmitField('Delete quiz')

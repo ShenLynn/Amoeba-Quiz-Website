@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, json
 from app import app, forms, db
-from app.forms import SignupForm, LoginForm
+from app.forms import SignupForm, LoginForm, DeleteQuizForm
 from app.models import User, Attempt, Quiz
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
@@ -50,11 +50,11 @@ def signup_login():
 @app.route('/logout')
 def logout():
   logout_user()
-  return redirect(url_for('index'))
+  return redirect(url_for('signup_login'))
 
-@app.route('/quiz', methods=['POST', 'GET'])
-def quiz():
-
+@app.route('/quiz/<quizid>', methods=['POST', 'GET'])
+def quiz(quizid):
+  quiz = Quiz.query.filter_by(id=quizid).first()
   questionset = {
     "questions":[
     {
@@ -88,7 +88,7 @@ def quiz():
     },
   ]
   }
-  return render_template('quiz.html', questionset=questionset)
+  return render_template('quiz.html', questionset=questionset, quizname=quiz.quizname, quizcat=quiz.category)
 
 #quiz categories page
 @app.route('/categories', methods=['GET', 'POST'])
@@ -101,6 +101,20 @@ def categories():
     quizdic[category] = Quiz.query.filter_by(category=category).all()
 
   return render_template('categories.html', catlist=catlist, quizdic=quizdic)
+
+#admin view that allows them to delete quizes
+@app.route('/deletequiz/<quizid>', methods=['GET','POST'])
+def deletequiz(quizid):
+  if(current_user.is_admin==False):
+    return redirect(url_for('index')) #do not allow non-admin users to visit this page.
+  quiz = Quiz.query.filter_by(id=quizid).first()
+  delquizform = DeleteQuizForm()
+  confirmed = False
+  if delquizform.submitDelete.data and delquizform.validate_on_submit():
+    db.session.delete(quiz)
+    db.session.commit()
+    confirmed = True
+  return render_template('delete_quiz.html', quiz=quiz, delquizform=delquizform, confirmed=confirmed)
 
 #page for testing functionality of 'attempt' table
 @app.route('/pretendattempts', methods=['GET','POST'])

@@ -65,6 +65,9 @@
     justify-content: center;
   }
 
+  .quizlistcontainer a {
+    text-align: center;
+  }
   .quizbtn {
     width: 170px;
     padding: 20px;
@@ -101,7 +104,13 @@
       <div class="quizlist quizhidden" id="{{ category }}">
         {% for quiz in quizdic[category] %}
         <div class="quizbtncontainer">
-          <button class="quizbtn">{{ quiz.quizname }}</button>
+
+          <form method='post', action="{{ url_for('quiz', quizid=quiz.id) }}">
+            <button class="quizbtn">{{ quiz.quizname }}</button>
+          </form>
+          {% if current_user.is_admin == True %}
+            <a href="{{ url_for('deletequiz', quizid=quiz.id) }}">Delete {{ quiz.quizname }}</a>
+          {% endif %}
         </div>
         {% endfor %}
       </div>
