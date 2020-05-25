@@ -249,3 +249,10 @@ def deleteuser(userid):
     db.session.delete(user)
     db.session.commit()
   return render_template('delete_user.html', user=user, deluserform=deluserform, confirmed=confirmed)
+
+@app.route('/administration', methods=['GET','POST'])
+@login_required
+def administration():
+  if(current_user.is_admin==False):
+    return redirect(url_for('index')) #only admins can visit this page
+  return render_template('administration.html')

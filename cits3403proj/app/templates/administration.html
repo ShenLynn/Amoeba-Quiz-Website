@@ -1,0 +1,78 @@
+{% extends "template.html" %}
+{% block head %}
+<style>
+  .menuflex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin:20px;
+    padding: 20px;
+  }
+
+  .menuitem {
+    background-color: #f7ebe4;
+    border-radius: 10px;
+    height: 400px;
+    width: 250px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menuitem > h2 {
+    background-color: rgb(58, 180, 218);
+    color: white;
+    padding:20px;
+  }
+
+  .menuitem > p {
+    font-size: 1em;
+    padding:20px;
+    flex-grow: 1;
+  }
+
+  .menubtn {
+    width: 170px;
+    padding: 20px;
+    background-color: #0f1c43;
+    color:rgb(216, 216, 216);
+    box-shadow: 0px 5px rgb(61, 90, 153);
+    border:none;
+    outline:none;
+    border-radius: 8px;
+    text-align: center;
+    align-self:center;
+    margin: 50px 0px;
+  }
+
+  .menubtn:hover {
+    color: white;
+  }
+
+  .menubtn:active {
+    transform: translateY(3px);
+    box-shadow: 0px 2px rgb(61, 90, 153)
+  }
+</style>
+{% endblock %}
+
+{%block content%}
+<h2 style="text-align: center; padding-top: 20px;">Administration Functions</h2>
+<div class="menuflex">
+  <div class="menuitem">
+    <h2>Create a Quiz</h2>
+    <p>Create a quiz by file upload. Please be ready to submit a .JSON format list of questions and answers.</p>
+    <a class="menubtn" href="{{ url_for('upload') }}">Create Quiz</a>
+  </div>
+  <div class="menuitem">
+    <h2>Delete a Quiz</h2>
+    <p>You can delete a quiz by visiting the Categories page as an admin user</p>
+    <a class="menubtn" href="{{ url_for('categories') }}">View Quizzes</a>
+  </div>
+  <div class="menuitem">
+    <h2>Manage Users</h2>
+    <p>You can view all users and their data, and delete users if you need to.</p>
+    <a class="menubtn" href="{{ url_for('users') }}">Manage Users</a>
+  </div>
+</div>
+{% endblock %}

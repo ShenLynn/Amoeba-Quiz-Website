@@ -27,13 +27,14 @@
           <a href="{{ url_for('index') }}">HOME</a>
           <a href="{{ url_for('categories') }}">CATEGORIES</a>
           <a href="{{ url_for('leaderboards') }}">LEADERBOARDS</a>
-          <a>TOURNAMENT</a>
-          <a>STORE</a>
           {% if current_user.is_authenticated %}
           <a href="{{ url_for('logout') }}">LOGOUT</a>
           <a href="{{ url_for('profile', username=current_user.username) }}">{{ current_user.username }}</a>
           {% else %}
           <a href="{{ url_for('signup_login') }}">LOGIN/SIGNUP</a>
+          {% endif %}
+          {% if current_user.is_admin %}
+          <a href="{{ url_for('administration') }}">ADMIN</a>
           {% endif %}
         </u1>
       </div>
