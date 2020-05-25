@@ -1,0 +1,323 @@
+commit 9a4492cf8fb8e0f39f8e9b5dedfcb68074085fc0
+Merge: 7e218c3 9bd71bb
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 23:34:58 2020 +0800
+
+    Merge branch 'master' of github.com:ShenLynn/cits3403proj2
+
+commit 7e218c3df18387d4978a65b8ec830259c76bc354
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 23:33:33 2020 +0800
+
+    added config to include test config
+
+commit 9bd71bba55c82048841a538686964d82a405434c
+Merge: 91c3135 3470e03
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Mon May 25 23:18:35 2020 +0800
+
+    Merge branch 'administration'
+
+commit 3470e033b39c8fa4334c253a75ab0b9586a1ab95
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Mon May 25 23:17:56 2020 +0800
+
+    implemented admin functions hub page
+
+commit 258db85caef86b296796e3317f90896a8b3f56f7
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 23:13:42 2020 +0800
+
+    added tests folder
+
+commit 91c3135f2ac29dca941b306196683b1f21ea4462
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 22:57:03 2020 +0800
+
+    added footer
+
+commit 5189a553b0baf3ecb5cfe285188a0702d9c1ee7c
+Merge: 8789f9c e474390
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 22:24:56 2020 +0800
+
+    Merge branch 'master' of github.com:ShenLynn/cits3403proj2
+
+commit 8789f9cda5456034420416b4a6c99d64783ded4e
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 22:21:36 2020 +0800
+
+    replaced junk text and added time bonus
+
+commit e474390e3090e4d51f3879bd1046c62f40c64070
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Mon May 25 21:44:18 2020 +0800
+
+    fully implemented admin ability to delete users
+
+commit 93c027a2724822edfe975ba0d653d3d765ba1043
+Merge: e33f169 d56238b
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 20:50:39 2020 +0800
+
+    Merge branch 'bug_fixes'
+
+commit e33f1698dee25d89beae858f80acc593db2bb7fc
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Mon May 25 20:44:59 2020 +0800
+
+    Added leaderboards page, displaying highest scores for all categories and all quizes.
+
+commit d56238b1545b4f61d58588843658a31ef3baf84a
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 20:44:46 2020 +0800
+
+    fixed submit results link
+
+commit 553ddf0944858c32afb634bf5a6f082fbde11202
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 19:13:37 2020 +0800
+
+    Fixed userattempt form
+
+commit f1e6eb1fb1bd104d7af4130581ca09e2fb6cb3d2
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Mon May 25 16:23:02 2020 +0800
+
+    renamed app to 'amoeba'
+
+commit 296efa5d022878e53a407f5305cfd8326eb8b39a
+Merge: b19d868 84385a1
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 15:44:10 2020 +0800
+
+    Merge branch 'quiz_results'
+
+commit 84385a1f056f229875f36b282e1e4e1dbb3010ba
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 15:36:30 2020 +0800
+
+    Added resultsform
+
+commit b19d8682909994c9650b2380ca18db12bb4f1066
+Merge: 8609f02 40273b3
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Mon May 25 15:08:42 2020 +0800
+
+    Merge branch 'user_profile'
+
+commit 40273b36838d40b343d2c27687ff9ec5c2aa4247
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Mon May 25 15:05:29 2020 +0800
+
+    Added user profile which displays user metrics. Added page to customise user's amoeba. Added required login for multiple pages.
+
+commit 6313f52892bda0295fc37d12f385830c3b87a5d5
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 14:51:55 2020 +0800
+
+    Added a results view after user completes quiz
+
+commit 026ced6f6104db862daf3a6deb2e7393c13eff4a
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 25 12:17:38 2020 +0800
+
+    Added admin pages userview and question upload
+
+commit 8609f02d3ea7cb67342c7f0e267ce1de525c9298
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Sun May 24 21:49:38 2020 +0800
+
+    added error handling
+
+commit 31c71219a1c23c2ebd0eb1767fe013660a64db44
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Sun May 24 21:19:41 2020 +0800
+
+    added ability for admins to delete quizes. clicking a quiz now takes a user to the appropriate quiz page.
+
+commit aa9671d0fcd09a047d9ae2529dcbbd8e311826a5
+Merge: 91834c9 39495ce
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Sun May 24 14:56:56 2020 +0800
+
+    Merge branch 'master' of github.com:ShenLynn/cits3403proj2
+
+commit 91834c94c7e92016bdcdcf325ca172ef6294b41c
+Merge: bec717f 05f50c7
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Sun May 24 14:55:19 2020 +0800
+
+    Merge branch 'admin_view'
+
+commit 05f50c7cad1db7396f8f8e4e1d58f4ed792a4196
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Sun May 24 14:54:19 2020 +0800
+
+    added admin view
+
+commit 39495ce0c8ea08a7b08338e7c8b15b2491e4674f
+Merge: bec717f 7dd19b2
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Sun May 24 13:13:53 2020 +0800
+
+    Merge branch 'categories_page'
+
+commit 7dd19b2c00a46e97fb2525e693b276d709dc6216
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Sun May 24 13:02:31 2020 +0800
+
+    Added categories page, added print function for Quiz and Attempt tables, added links to appropriate pages on navbar
+
+commit bec717f0b0a8b750c27b309b7e4d46686ecaf90a
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Sun May 24 12:08:20 2020 +0800
+
+    added is_admin boolean
+
+commit 345b68ec4f4d60e45f19c2fa8355d37ed70cc05b
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Sat May 23 13:24:17 2020 +0800
+
+    added sign-up/login functionality
+    added remember current user functionality
+    added quiz files
+    updated Quiz model to record unique names for each quiz. Multiple quizzes allowed in one category
+
+commit 9b81e6ec097668aa74def2d81d3fba814817dadd
+Author: ShenLynn <58331422+ShenLynn@users.noreply.github.com>
+Date:   Fri May 22 14:13:17 2020 +0800
+
+    Delete __init__.pyc
+
+commit c0672fed48497c3e145c20121a436445a1d5dc38
+Merge: e7d9e98 bc8612f
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Fri May 22 14:00:41 2020 +0800
+
+    Merge branch 'master' of github.com:ShenLynn/cits3403proj2 into signuplogin_page
+
+commit e7d9e9835eb2e4c5fff30dfd9b5034f7b29d22d8
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Thu May 21 23:08:00 2020 +0800
+
+    finished form
+
+commit bc8612f950db416e1b4de317d64c1095bdda175d
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Thu May 21 15:06:14 2020 +0800
+
+    updated db to include 'Attempt' and 'Quiz' tables. added testing features for these tables
+
+commit 52721e7a86575913f03ee6185b9b2c38d7c96842
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Thu May 21 12:27:03 2020 +0800
+
+    finished styling for landing page
+
+commit 58d5e4558bbc8f64cb7896f24074ad6a42be4878
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Wed May 20 16:56:10 2020 +0800
+
+    added amoebas
+
+commit 96266b6683d2c411ebdeaac96ab842d38ef9e0e4
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Tue May 19 14:09:53 2020 +0800
+
+    fixed bugs and added styling
+
+commit 6808fe8c824052939bfdc17ff7fe0e2112412e02
+Author: Shen Sun <shenlynn.sun@gmail.com>
+Date:   Mon May 18 22:18:36 2020 +0800
+
+    added quiztimer
+
+commit b0c34ae1d42ed23afa343384adc1ab5429660464
+Author: Lawrence Follis <22236729@student.uwa.edu.au>
+Date:   Sun May 17 18:23:59 2020 +0800
+
+    added 'quiz' and 'attempt' tables to models
+
+commit eada01d7f5416d16293c1e281a719989f5509cfb
+Merge: 7afe6cb 46453f5
+Author: ShenLynn <shenlynn.sun@gmail.com>
+Date:   Sun May 17 17:43:02 2020 +0800
+
+    Merge branch 'signup_form' into quiztemplate
+
+commit 7afe6cb619cb2ad2a7a0260f6af86a41e385c5c9
+Author: ShenLynn <shenlynn.sun@gmail.com>
+Date:   Sun May 17 17:13:57 2020 +0800
+
+    quiz updated
+
+commit 46453f5c8c346f09a317ad5f233a1d683583a3bc
+Author: ShenLynn <shenlynn.sun@gmail.com>
+Date:   Sun May 17 16:53:04 2020 +0800
+
+    Revert "quiz mechanics"
+    
+    This reverts commit eabeb079a58f58ae560b6440867b7678f2cb23f8.
+
+commit eabeb079a58f58ae560b6440867b7678f2cb23f8
+Author: ShenLynn <shenlynn.sun@gmail.com>
+Date:   Sun May 17 16:40:31 2020 +0800
+
+    quiz mechanics
+
+commit 687afd9fd5db0ddefbed4b1c2ce182679341f682
+Author: ShenLynn <shenlynn.sun@gmail.com>
+Date:   Thu May 14 16:17:18 2020 +0800
+
+    Quiz display
+
+commit 1ddd9d398cd7b2157e433ae55ed7884a34a6fe17
+Author: ShenLynn <shenlynn.sun@gmail.com>
+Date:   Wed May 13 10:25:06 2020 +0800
+
+    add user to database
+
+commit 73bdf7c099e07ae691c3fedadb30518540ef4681
+Author: ShenLynn <shenlynn.sun@gmail.com>
+Date:   Sun May 10 13:26:11 2020 +0800
+
+    added database
+
+commit 59f1d87a8ea5255af249a333eddcb69c82ca9d03
+Author: ShenLynn <shenlynn.sun@gmail.com>
+Date:   Fri May 8 21:41:34 2020 +0800
+
+    added flask signup form
+
+commit 26180278f49f63a353c550aab591da52b0a4b3f3
+Author: ShenLynn <58331422+ShenLynn@users.noreply.github.com>
+Date:   Tue May 5 23:48:22 2020 +0800
+
+    Delete content.html
+
+commit b73cbf860d309f017108dcce1242c26b880da816
+Author: ShenLynn <58331422+ShenLynn@users.noreply.github.com>
+Date:   Tue May 5 23:48:05 2020 +0800
+
+    Delete content.css
+
+commit 3faa2ad59c0887aef2c264deb31346f40acde10d
+Author: ShenLynn <58331422+ShenLynn@users.noreply.github.com>
+Date:   Tue May 5 23:47:34 2020 +0800
+
+    Add files via upload
+    
+    added flask app
+
+commit 22dc65dfc8fe682af4e3d1e5fb5851a248a8f307
+Author: ShenLynn <58331422+ShenLynn@users.noreply.github.com>
+Date:   Sat Mar 21 13:14:09 2020 +0800
+
+    Update content.html
+
+commit fa3e64a8bb3506ea58c33a075543e6d013dc4e4a
+Author: ShenLynn <58331422+ShenLynn@users.noreply.github.com>
+Date:   Sat Mar 21 13:12:49 2020 +0800
+
+    Add files via upload
