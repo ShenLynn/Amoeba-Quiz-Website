@@ -53,13 +53,16 @@
     <div id="results" class="hide">
       <h1>Here are the results of the quiz:</h1>
       <ol id="results_list"></ol>
+      <form method="post">
+        {{ resultsform.hidden_tag() }}
+        <p>{{ resultsform.submitResults() }}</p>
+      </form>
     </div>
   </div>
 </div>
 <script>
   const questionset = JSON.parse('{{questionset | tojson | safe}}');
   const questioncount = questionset.questions.length;
-  let score = 0;
   let answered = [];
   let questionNo = 0;
   var selectedanswerbutton = 0;
@@ -138,7 +141,8 @@
     if (selectedanswerbutton != 0) {
       //if right answer
       if (selectedanswerbutton.dataset.correct) {
-        score++;
+        {%set score=score+1 %}
+        console.log("score oging up");
         answered.push('correct');
       } else {
         answered.push('wrong');
@@ -164,7 +168,7 @@
   function displayScore() {
     removeQuestions();
     clearInterval(mytimer);
-    description.innerHTML = 'Your score is:' + score;
+    description.innerHTML = 'Your score is:' + {{ score}};
     description.classList.remove('hide');
     questioncontainer.classList.add('hide');
   }

@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, json
 from app import app, forms, db
-from app.forms import SignupForm, LoginForm, DeleteQuizForm, AddQuizForm, DeleteUserForm
+from app.forms import SignupForm, LoginForm, DeleteQuizForm, AddQuizForm, DeleteUserForm, SubmitQuizResults
 from app.models import User, Attempt, Quiz
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
@@ -56,6 +56,12 @@ def logout():
 
 @app.route('/quiz/<quizid>', methods=['POST', 'GET'])
 def quiz(quizid):
+  resultsform = SubmitQuizResults()
+  quizscore = 0
+  if resultsform.submitResults.data and resultsform.validate_on_submit:
+    attempt = Attempt(user_id = current_user.id, score=quizscore, quiz_id=quizid)
+    db.session.add(attempt)
+    db.session.commit()
   quiz = Quiz.query.filter_by(id=quizid).first()
   filename = quiz.filename
   basedir = os.path.abspath(os.path.dirname(__file__))
@@ -63,7 +69,7 @@ def quiz(quizid):
   file_dir = os.path.join(quiz_dir, filename)
   with open(file_dir) as json_file:
     questionset = json.load(json_file)
-  return render_template('quiz.html', questionset=questionset, quizname=quiz.quizname, quizcat=quiz.category)
+  return render_template('quiz.html', questionset=questionset, quizname=quiz.quizname, quizcat=quiz.category, resultsform=resultsform, score=quizscore)
 
 #quiz categories page
 @app.route('/categories', methods=['GET', 'POST'])
