@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, json
 from app import app, forms, db
-from app.forms import SignupForm, LoginForm, DeleteQuizForm, AddQuizForm, DeleteUserForm, SubmitQuizResults
+from app.forms import SignupForm, LoginForm, DeleteQuizForm, AddQuizForm, DeleteUserForm
 from app.models import User, Attempt, Quiz
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
@@ -70,13 +70,10 @@ def quiz(quizid):
 @app.route('/results/<quizid>/<score>', methods=['POST', 'GET'])
 @login_required
 def results(quizid, score):
-  resultsform=SubmitQuizResults()
-  if resultsform.submitResults.data and resultsform.validate_on_submit:
-    attempt = Attempt(user_id = current_user.id, score=score*500, quiz_id=quizid)
-    db.session.add(attempt)
-    db.session.commit()
-    return redirect(url_for('personal'))
-  return render_template('results.html', resultsform=resultsform)
+  attempt = Attempt(user_id = current_user.id, score=score*500, quiz_id=quizid)
+  db.session.add(attempt)
+  db.session.commit()
+  return redirect(url_for('personal'))
 
 #quiz categories page
 @app.route('/categories', methods=['GET', 'POST'])

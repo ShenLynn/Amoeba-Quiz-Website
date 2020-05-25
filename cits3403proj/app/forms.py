@@ -36,6 +36,3 @@ class AddQuizForm(FlaskForm):
   category = StringField('Category', validators=[DataRequired(), Length(min=1, max=20)])
   quiz = FileField('Document', validators=[FileRequired(), FileAllowed(['json'], 'Only JSON documents!')])
   submitQuiz = SubmitField('Submit Quiz')
-
-class SubmitQuizResults(FlaskForm):
-  submitResults = SubmitField('Submit Results')

@@ -50,6 +50,25 @@ body {
 #question {
   font-size: 30px;
 }
+#results {
+  margin-top: 20px;
+}
+
+#resultslink {
+  display: block;
+  width: 200px;
+  height: 60px;
+  background-color: var(--hue-blue);
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  margin-left: 30%;
+  margin-right: 30%;
+}
 
 .btn-grid {
   display: grid;
