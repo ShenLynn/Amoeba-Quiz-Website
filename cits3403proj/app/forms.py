@@ -29,7 +29,7 @@ class DeleteQuizForm(FlaskForm):
   submitDelete = SubmitField('Delete quiz')
 
 class DeleteUserForm(FlaskForm):
-  submitDelete = SubmitField('Delete user')
+  submitDeleteUser = SubmitField('Delete user')
 
 class AddQuizForm(FlaskForm):
   quizname = StringField('Quizname', validators=[DataRequired(), Length(min=1, max=20)])

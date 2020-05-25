@@ -226,11 +226,26 @@ def upload():
 @app.route('/users', methods=['GET', 'POST'])
 @login_required
 def users():
-  deluserform = DeleteUserForm()
   if(current_user.is_admin==False):
     return redirect(url_for('index')) #only admins can visit this page
   users = User.query.all()
-  if deluserform.submitDelete.data and deluserform.validate_on_submit():
+  return render_template('usersview.html', users=users)
+
+@app.route('/deleteuser/<userid>', methods=['GET','POST'])
+@login_required
+def deleteuser(userid):
+  if(current_user.is_admin==False):
+    return redirect(url_for('index')) #only admins can visit this page
+  user = User.query.filter_by(id=userid).first_or_404()
+  deluserform = DeleteUserForm()
+  confirmed = False
+
+  if deluserform.submitDeleteUser.data and deluserform.validate_on_submit():
+    confirmed = True
+    #delete all quiz attempt data associated with the user
+    for attempt in user.attempts:
+      db.session.delete(attempt)
+      db.session.commit()
     db.session.delete(user)
     db.session.commit()
-  return render_template('usersview.html', users=users, deluserform=deluserform)
+  return render_template('delete_user.html', user=user, deluserform=deluserform, confirmed=confirmed)

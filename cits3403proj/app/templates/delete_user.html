@@ -1,0 +1,95 @@
+{% extends "template.html" %}
+{% block head %}
+<style>
+  .pageflex {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+  }
+
+  .formflex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7ebe4;
+    border-radius: 10px;
+    padding: 40px;
+  }
+
+  .buttonflex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .formflex h2 {
+    text-align: center;
+  }
+
+  .deletebtn {
+    width: 170px;
+    padding: 20px;
+    background-color: #0f1c43;
+    color:rgb(216, 216, 216);
+    font-size: 1.1em;
+    box-shadow: 0px 5px rgb(61, 90, 153);
+    border:none;
+    outline:none;
+    border-radius: 10px;
+    margin: 20px;
+  }
+
+  .serious {
+    background-color: #942222;
+    box-shadow: 0px 5px #5f1313;
+  }
+  .deletebtn:hover {
+    color: white;
+  }
+
+  .deletebtn:active {
+    transform: translateY(3px);
+    box-shadow: 0px 2px rgb(61, 90, 153)
+  }
+  .formhidden {
+    display: none;
+  }
+
+</style>
+{% endblock %}
+{% block content %}
+  <div class="pageflex">
+    <div class="formflex">
+      <h2 class="tohide">Are you sure you want to delete user '{{ user.username }}', id = {{ user.id }}?</h2>
+      <h2 id="toshow" class="formhidden">User '{{ user.username }}' has been deleted.</h2>
+      <div class="buttonflex">
+        <form method='post', action="{{ url_for('usersview') }}">
+          <button id="cancelbtn" class="deletebtn">Cancel</button>
+        </form>
+        <form method='post' class="tohide">
+          {{ deluserform.hidden_tag() }}
+          <p>{{ deluserform.submitDeleteUser(class_="deletebtn serious") }}</p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    var deleted = '{{ confirmed }}';
+
+    function showdeletion(status){
+      if(status==='True'){
+        var objs = document.getElementsByClassName('tohide');
+        var length = (objs !== null)? objs.length : 0;
+        var i;
+        for(i=0; i<length; i++){
+          objs[i].classList.add('formhidden');
+        }
+        document.getElementById('toshow').classList.remove('formhidden');
+        document.getElementById('cancelbtn').innerHTML='return';
+      }
+    }
+
+    showdeletion(deleted);
+  </script>
+{% endblock %}
