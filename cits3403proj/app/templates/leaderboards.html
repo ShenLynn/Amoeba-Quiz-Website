@@ -1,0 +1,212 @@
+{% extends "template.html" %}
+{% block head %}
+<style>
+  .boardcontainer {
+    display: flex;
+    margin:20px;
+  }
+
+  .optmenu {
+    width: 250px;
+    background-color: rgb(117, 195, 219);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 0;
+    align-self: flex-start;
+    overflow: hidden;
+  }
+
+  .optmenu ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .optmenu h2{
+    display:block;
+    color:white;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding:20px;
+    margin:0;
+    transition: background-color 0.3s;
+  }
+
+  .optmenu h2:hover{
+    background-color: rgb(58, 180, 218);
+    cursor: pointer;
+  }
+
+  .quizmenu {
+    border-radius: 0;
+    background-color: rgb(150, 212, 231);
+  }
+
+  .activeopt {
+    background-color: rgb(58, 180, 218);
+  }
+
+  .leaderboard {
+    display: flex;
+    background-color: #f7ebe4;
+    flex-grow: 1;
+  }
+
+  th, td {
+    padding-right: 30px;
+    text-align: left;
+  }
+  .tohide {
+    display:none;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center; padding-top:20px">Leaderboards</h2>
+<div class= "boardcontainer">
+  <div class= "optmenu">
+    <ul>
+      <li><h2 id="anycat" onclick="anycat(this), showlb('all')">Any</h2></li>
+      {% for catname in datadic["catlist"] %}
+      <li><h2 class="catlink" onclick="selectcat(this)">{{ catname }}</h2></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% for catname in datadic["catlist"] %}
+  <div class="optmenu quizmenu tohide" id="{{ catname }}">
+    <ul>
+      <li><h2 class="anyquiz" onclick="selectquiz(this), showlb('{{ catname }}')">Any</h2></li>
+      {% for quiz in datadic["quizdic"][catname] %}
+        <li><h2 class="quizlink" onclick="selectquiz(this), showlb('{{ quiz.quizname }}')">{{ quiz.quizname }}</h2></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+  <div class="leaderboard">
+    <table class="lbtable tohide" id="lb_all">
+      <tr>
+        <th>username</th>
+        <th>category</th>
+        <th>quiz</th>
+        <th>date</th>
+        <th>score</th>
+      </tr>
+      {% for entry in datadic["lb_all"] %}
+      <tr>
+        <td>{{ entry[0].username }}</td>
+        <td>{{ entry[1].category }}</td>
+        <td>{{ entry[1].quizname }}</td>
+        <td>{{ entry[2].date.strftime("%d %b %Y") }}</td>
+        <td>{{ entry[2].score }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    {% for category in datadic["lb_cat"] %}
+    <table class="lbtable tohide" id="lb_{{ category }}">
+      <tr>
+        <th>username</th>
+        <th>category</th>
+        <th>quiz</th>
+        <th>date</th>
+        <th>score</th>
+      </tr>
+      {% for entry in datadic["lb_cat"][category] %}
+      <tr>
+        <td>{{ entry[0].username }}</td>
+        <td>{{ entry[1].category }}</td>
+        <td>{{ entry[1].quizname }}</td>
+        <td>{{ entry[2].date.strftime("%d %b %Y") }}</td>
+        <td>{{ entry[2].score }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endfor %}
+
+    {% for quiz in datadic["lb_quiz"] %}
+    <table class="lbtable tohide" id="lb_{{ quiz }}">
+      <tr>
+        <th>username</th>
+        <th>category</th>
+        <th>quiz</th>
+        <th>date</th>
+        <th>score</th>
+      </tr>
+      {% for entry in datadic["lb_quiz"][quiz] %}
+      <tr>
+        <td>{{ entry[0].username }}</td>
+        <td>{{ entry[1].category }}</td>
+        <td>{{ entry[1].quizname }}</td>
+        <td>{{ entry[2].date.strftime("%d %b %Y") }}</td>
+        <td>{{ entry[2].score }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endfor %}
+  </div>
+</div>
+<script>
+  function convertspaces(str){
+    return str.split(' ').join('_');
+  }
+  //function to show quizzes of selected category
+  function selectcat(self){
+    var code = self.innerHTML;
+    var cats = document.getElementsByClassName("catlink");
+    var length = (cats !== null)? cats.length : 0;
+    var i, category, quizlist;
+    for(i=0; i<length; i++){
+      category = cats[i];
+      quizlist = document.getElementById(category.innerHTML);
+      category.classList.remove('activeopt');
+      quizlist.classList.add('tohide');
+    }
+    self.classList.add('activeopt');
+    document.getElementById(code).classList.remove('tohide');
+    document.getElementById("anycat").classList.remove('activeopt');
+  }
+
+  function anycat(self){
+    document.getElementById("anycat").classList.add("activeopt");
+    var cats = document.getElementsByClassName("catlink");
+    var length = (cats !== null)? cats.length : 0;
+    var i, category;
+    for(i=0; i<length; i++){
+      category = cats[i];
+      quizlist = document.getElementById(category.innerHTML);
+      category.classList.remove('activeopt');
+      quizlist.classList.add('tohide');
+    }
+  }
+
+  function selectquiz(self){
+    var quizzes = document.getElementsByClassName("quizlink");
+    var length = (quizzes !== null)? quizzes.length : 0;
+    var i, current;
+    for(i=0; i<length; i++){
+      current = quizzes[i];
+      current.classList.remove('activeopt');
+    }
+    var anyquiz = document.getElementsByClassName("anyquiz");
+    length = (anyquiz !== null)? anyquiz.length : 0;
+    for(i=0; i<length; i++){
+      current = anyquiz[i];
+      current.classList.remove('activeopt');
+    }
+    self.classList.add('activeopt');
+  }
+
+  function showlb(id){
+    tables = document.getElementsByClassName("lbtable");
+    var length = (tables !== null)? tables.length : 0;
+    var i, current;
+    for(i=0; i<length; i++){
+      current = tables[i];
+      current.classList.add("tohide")
+    }
+    document.getElementById("lb_" + id).classList.remove("tohide");
+  }
+
+</script>
+{% endblock %}

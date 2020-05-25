@@ -64,7 +64,7 @@ def quiz(quizid):
     attempt = Attempt(user_id = current_user.id, score=quizscore, quiz_id=quizid)
     db.session.add(attempt)
     db.session.commit()
-  quiz = Quiz.query.filter_by(id=quizid).first()
+  quiz = Quiz.query.filter_by(id=quizid).first_or_404()
   filename = quiz.filename
   basedir = os.path.abspath(os.path.dirname(__file__))
   quiz_dir = os.path.join(basedir, 'static', 'quizzes')
@@ -78,7 +78,7 @@ def quiz(quizid):
 @login_required
 def categories():
   #retrieve distinct list of categories available
-  catlist = [cat[0] for cat in db.session.query(distinct(Quiz.category))]
+  catlist = [cat[0] for cat in db.session.query(distinct(Quiz.category)).order_by(Quiz.category)]
   #dictionary to map category to list of its quizes
   quizdic = {}
   for category in catlist:
@@ -154,6 +154,35 @@ def profile(username):
 def customamoeba():
   return render_template("customize_amoeba.html")
 
+@app.route('/leaderboards')
+@login_required
+def leaderboards():
+  #scores across any category, any quiz
+  lb_all = db.session.query(User,Quiz,Attempt).filter(Attempt.user_id==User.id, Attempt.quiz_id==Quiz.id).order_by(Attempt.score.desc()).all()
+
+  #dictionary mapping scores across a given category name
+  lb_cat = {}
+  #dictionary mapping scores across a give quiz name
+  lb_quiz = {}
+
+  #retrieve distinct list of categories available
+  catlist = [cat[0] for cat in db.session.query(distinct(Quiz.category)).order_by(Quiz.category)]
+  #dictionary to map category to list of its quizes
+  quizdic = {}
+  for category in catlist:
+    quizdic[category] = Quiz.query.filter_by(category=category).all()
+    lb_cat[category] = db.session.query(User,Quiz,Attempt).filter(Attempt.user_id==User.id, Attempt.quiz_id==Quiz.id, Quiz.category==category).order_by(Attempt.score.desc()).all()
+    for quiz in quizdic[category]:
+      lb_quiz[quiz.quizname] = db.session.query(User,Quiz,Attempt).filter(Attempt.user_id==User.id, Attempt.quiz_id==Quiz.id, Quiz.quizname==quiz.quizname).order_by(Attempt.score.desc()).all()
+  
+  datadic={}
+  datadic["catlist"]=catlist
+  datadic["quizdic"]=quizdic
+  datadic["lb_all"]=lb_all
+  datadic["lb_cat"]=lb_cat
+  datadic["lb_quiz"]=lb_quiz
+
+  return render_template("leaderboards.html", datadic=datadic)
 #page for testing functionality of 'attempt' table
 @app.route('/pretendattempts', methods=['GET','POST'])
 def pretend_attempts():
