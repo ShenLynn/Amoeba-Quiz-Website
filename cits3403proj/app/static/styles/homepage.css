@@ -89,11 +89,22 @@
   display: block;
 }
 
-#close-form {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  right: -10px;
-  top: -10px;
-  cursor: pointer;
+footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #0f1c43;
+  border-top-left-radius: 50% 20%;
+  border-top-right-radius: 50% 20%;
+  color: white;
+  text-align: center;
+  padding-bottom: 70px;
+}
+footer p {
+  color: white;
+}
+
+footer h1 {
+  padding-top: 20px;
 }
