@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, json
 from app import app, forms, db
-from app.forms import SignupForm, LoginForm, DeleteQuizForm, AddQuizForm, DeleteUserForm, SubmitQuizResults
+from app.forms import SignupForm, LoginForm, DeleteQuizForm, AddQuizForm, DeleteUserForm
 from app.models import User, Attempt, Quiz
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
@@ -58,20 +58,22 @@ def logout():
 @app.route('/quiz/<quizid>', methods=['POST', 'GET'])
 @login_required
 def quiz(quizid):
-  resultsform = SubmitQuizResults()
-  quizscore = 0
-  if resultsform.submitResults.data and resultsform.validate_on_submit:
-    attempt = Attempt(user_id = current_user.id, score=quizscore, quiz_id=quizid)
-    db.session.add(attempt)
-    db.session.commit()
-  quiz = Quiz.query.filter_by(id=quizid).first_or_404()
+  quiz = Quiz.query.filter_by(id=quizid).first()
   filename = quiz.filename
   basedir = os.path.abspath(os.path.dirname(__file__))
   quiz_dir = os.path.join(basedir, 'static', 'quizzes')
   file_dir = os.path.join(quiz_dir, filename)
   with open(file_dir) as json_file:
     questionset = json.load(json_file)
-  return render_template('quiz.html', questionset=questionset, quizname=quiz.quizname, quizcat=quiz.category, resultsform=resultsform, score=quizscore)
+  return render_template('quiz.html', questionset=questionset, quizname=quiz.quizname, quizcat=quiz.category, quizid=quizid)
+
+@app.route('/results/<quizid>/<score>', methods=['POST', 'GET'])
+@login_required
+def results(quizid, score):
+  attempt = Attempt(user_id = current_user.id, score=score*500, quiz_id=quizid)
+  db.session.add(attempt)
+  db.session.commit()
+  return redirect(url_for('personal'))
 
 #quiz categories page
 @app.route('/categories', methods=['GET', 'POST'])
@@ -200,6 +202,7 @@ def personal():
   return render_template('personal.html')
 
 @app.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload():
   if(current_user.is_admin==False):
     return redirect(url_for('index')) #only admins can visit this page
@@ -221,6 +224,7 @@ def upload():
   return render_template('uploadquestions.html', quizform=quizform)
 
 @app.route('/users', methods=['GET', 'POST'])
+@login_required
 def users():
   deluserform = DeleteUserForm()
   #if(current_user.is_admin==False):
