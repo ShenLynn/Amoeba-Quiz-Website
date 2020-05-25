@@ -5,6 +5,7 @@ from app.models import User, Attempt, Quiz
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from sqlalchemy import distinct
+from sqlalchemy.sql import func
 
 #import testing module
 from app.testing import randomQuiz, randomAttempt, PretendGenQuiz, PretendGenAttempt
@@ -53,8 +54,9 @@ def logout():
   return redirect(url_for('signup_login'))
 
 @app.route('/quiz/<quizid>', methods=['POST', 'GET'])
+@login_required
 def quiz(quizid):
-  quiz = Quiz.query.filter_by(id=quizid).first()
+  quiz = Quiz.query.filter_by(id=quizid).first_or_404()
   questionset = {
     "questions":[
     {
@@ -92,6 +94,7 @@ def quiz(quizid):
 
 #quiz categories page
 @app.route('/categories', methods=['GET', 'POST'])
+@login_required
 def categories():
   #retrieve distinct list of categories available
   catlist = [cat[0] for cat in db.session.query(distinct(Quiz.category))]
@@ -104,6 +107,7 @@ def categories():
 
 #admin view that allows them to delete quizes
 @app.route('/deletequiz/<quizid>', methods=['GET','POST'])
+@login_required
 def deletequiz(quizid):
   if(current_user.is_admin==False):
     return redirect(url_for('index')) #do not allow non-admin users to visit this page.
@@ -115,6 +119,59 @@ def deletequiz(quizid):
     db.session.commit()
     confirmed = True
   return render_template('delete_quiz.html', quiz=quiz, delquizform=delquizform, confirmed=confirmed)
+
+@app.route('/user/<username>')
+@login_required
+def profile(username):
+  user = User.query.filter_by(username=username).first_or_404()
+  joindate = user.date_joined.strftime("%d %b %Y")
+  favcats = []
+  favcatsplays = []
+  hiquizzes = []
+  hiscores = []
+  totalattempts = 0
+  totalscore = 0
+  madeattempt = Attempt.query.filter_by(user_id = user.id).first() is not None
+  datadic = {}
+  if madeattempt:
+    #find favourite categories and number of plays in that category. Add at most 4 to correspoinding lists.
+    categoryranking = db.session.query(Attempt, Quiz, func.count(Quiz.category)).filter(Attempt.quiz_id==Quiz.id, Attempt.user_id==user.id).group_by(Quiz.category).order_by(func.count(Quiz.category).desc()).limit(4).all()
+    for i in range(0, len(categoryranking)):
+      favcats.append(categoryranking[i][1].category)
+      favcatsplays.append(categoryranking[i][2])
+    
+    #find highscores and the quiz it was achieved in
+    scoreranking = db.session.query(Attempt, Quiz, func.max(Attempt.score)).filter(Attempt.quiz_id==Quiz.id, Attempt.user_id==user.id).group_by(Quiz.id).order_by(func.max(Attempt.score).desc()).limit(4).all()
+    for i in range(0, len(scoreranking)):
+      hiquizzes.append(scoreranking[i][1].quizname)
+      hiscores.append(scoreranking[i][2])
+    
+    #find user's total number of quiz plays
+    allplays = db.session.query(func.count(Attempt.user_id)).filter_by(user_id=user.id).first()
+    totalattempts = allplays[0]
+
+    #find user's total score
+    allscores = db.session.query(func.sum(Attempt.score)).filter_by(user_id=user.id).first()
+    totalscore = allscores[0]
+  
+  #add all data to a dictionary for jinja
+  datadic["joindate"]=joindate
+  datadic["favcats"]=favcats
+  datadic["favcatlen"]=len(favcats)
+  datadic["favcatsplays"]=favcatsplays
+  datadic["hiquizzes"]=hiquizzes
+  datadic["hiquizlen"]=len(hiquizzes)
+  datadic["hiscores"]=hiscores
+  datadic["totalattempts"]=totalattempts
+  datadic["totalscore"]=totalscore
+  datadic["madeattempt"]=madeattempt
+
+  return render_template("profile.html", user=user, datadic=datadic)
+
+@app.route('/customizeamoeba')
+@login_required
+def customamoeba():
+  return render_template("customize_amoeba.html")
 
 #page for testing functionality of 'attempt' table
 @app.route('/pretendattempts', methods=['GET','POST'])

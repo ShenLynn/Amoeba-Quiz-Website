@@ -1,0 +1,293 @@
+{% extends "template.html" %}
+{% block head %}
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  .menu_and_char {
+    display: flex;
+    background-color: rgb(68, 68, 68);
+    justify-content: center;
+    padding: 5px;
+  }
+  .item_menu {
+    height:300px;
+    overflow-y: scroll;
+  }
+
+  .item_menu > h2 {
+    color: white;
+  }
+
+  .loadout {
+    height: 300px;
+    width: 300px;
+    background-color: #f7ebe4;
+    position: relative;
+    border: 2px solid rgb(133, 133, 133);
+  }
+
+  .item_btn_list {
+    display: flex;
+  }
+
+  .item_btn {
+    background-color: rgb(99, 139, 226);
+    box-shadow: 0px 5px rgb(61, 90, 153);
+    border-radius: 8px;
+    color:rgb(172, 229, 255);
+    font-family: Cambria, Helvetica, sans-serif;
+    font-size: 16px;
+    border:none;
+    padding:10px 16px;
+    margin:5px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .item_btn:hover {
+    color: white
+  }
+
+  .item_btn:active {
+    transform: translateY(3px);
+    box-shadow: 0px 2px rgb(61, 90, 153);
+  }
+
+  .activebtn {
+    background-color: blue;
+    color: white;
+  }
+
+  .amoeba_ball {
+    height: 200px;
+    width: 200px;
+    background-color: #638be2;
+
+    /* make it round */
+    border-radius: 50%;
+
+    /* move it to the middle, squish it down a bit */
+    transform: translate(-50%, -50%) scale(1, 0.9);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+
+  .amoeba_eye {
+    height: 15px;
+    width: 15px;
+    background-color: black;
+
+    /* make it round */
+    border-radius: 50%;
+
+    /* move it to the middle, squish it down a bit */
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: 23%;
+    z-index: 2;
+  }
+
+  .eye_left {
+    left: 33%;
+    transform: skewX(-20deg);
+    z-index: 2;
+  }
+
+  .eye_right {
+    right: 33%;
+    transform: skewX(20deg);
+    z-index: 2;
+  }
+
+  .amoeba_smile {
+    /* make a semi-circle with border */
+    height:15px;
+    width:30px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border: 3px solid black;
+    border-top: 0;
+
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 43%;
+    z-index: 2;
+  }
+
+  .amoeba_style_stripes {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: repeating-linear-gradient(-45deg, transparent 0px, transparent 20px, #5981d8 20px, #5981d8 40px);
+    z-index: 1;
+  }
+
+  .amoeba_style_spots {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: radial-gradient(#5981d8 30%, transparent 30%), radial-gradient(#5981d8 30%, transparent 30%);
+    background-repeat: repeat, repeat;
+    background-position: 0 0, 30px 30px;
+    background-size: 60px 60px;
+  }
+
+  .amoeba_none {
+    display: none;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="menu_and_char">
+    <div class="item_menu">
+      <h2>Colour</h2>
+      <div class="item_btn_list" id="colorlist">
+        <button class="item_btn" onclick="pressButton(this), changeBodyColour(this)">red</button>
+        <button class="item_btn" onclick="pressButton(this), changeBodyColour(this)">orange</button>
+        <button class="item_btn" onclick="pressButton(this), changeBodyColour(this)">yellow</button>
+        <button class="item_btn" onclick="pressButton(this), changeBodyColour(this)">green</button>
+        <button class="item_btn activebtn" onclick="pressButton(this), changeBodyColour(this)">blue</button>
+        <button class="item_btn" onclick="pressButton(this), changeBodyColour(this)">purple</button>
+        <button class="item_btn" onclick="pressButton(this), changeBodyColour(this)">pink</button>
+      </div>
+      <hr>
+
+      <h2>Style</h2>
+      <div class="item_btn_list" id="stylelist">
+        <button class="item_btn" onclick="pressButton(this), changeStyle(this)">spots</button>
+        <button class="item_btn" onclick="pressButton(this), changeStyle(this)">stripes</button>
+      </div>
+      <hr>
+
+      <h2>Style Colour</h2>
+      <div class="item_btn_list" id="stylecolourlist">
+        <button class="item_btn" onclick="pressButton(this), changeStyleColour(this)">red</button>
+        <button class="item_btn" onclick="pressButton(this), changeStyleColour(this)">orange</button>
+        <button class="item_btn" onclick="pressButton(this), changeStyleColour(this)">yellow</button>
+        <button class="item_btn" onclick="pressButton(this), changeStyleColour(this)">green</button>
+        <button class="item_btn" onclick="pressButton(this), changeStyleColour(this)">blue</button>
+        <button class="item_btn" onclick="pressButton(this), changeStyleColour(this)">purple</button>
+        <button class="item_btn" onclick="pressButton(this), changeStyleColour(this)">pink</button>
+      </div>
+      <hr>
+
+      <h2>Hats</h2>
+      <div class="item_btn_list" id="hatlist">
+        <button class="item_btn" onclick="pressButton(this)">top hat</button>
+        <button class="item_btn" onclick="pressButton(this)">straw boater</button>
+        <button class="item_btn" onclick="pressButton(this)">beanie</button>
+      </div>
+      <hr>
+
+      <h2>Eyewear</h2>
+      <div class="item_btn_list" id="eyelist">
+        <button class="item_btn" onclick="pressButton(this)">round glasses</button>
+        <button class="item_btn" onclick="pressButton(this)">square glasses</button>
+        <button class="item_btn" onclick="pressButton(this)">sun glasses</button>
+      </div>
+      <hr>
+
+      <h2>Facewear</h2>
+      <div class="item_btn_list" id="facelist">
+        <button class="item_btn" onclick="pressButton(this)">face mask</button>
+        <button class="item_btn" onclick="pressButton(this)">bandit mask</button>
+      </div>
+    </div>
+
+    <div class="loadout">
+      <div class="amoeba_ball" id="amoebabody">
+        <div class="amoeba_eye eye_left"></div>
+        <div class="amoeba_eye eye_right"></div>
+        <div class="amoeba_smile"></div>
+        <div class="style amoeba_style_stripes amoeba_none" id="stripes"></div>
+        <div class="style amoeba_style_spots amoeba_none" id="spots"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    var colours = {red:"#e36464", orange:"#e29263", yellow:"#e2cf63", green:"#78e263", blue:"#638be2", purple:"#af63e2", pink:"#e263a2"};
+    var colours2 = {red:"#d95a5a", orange:"#d88859", yellow:"#d8c559", green:"#6ed859", blue:"#5981d8", purple:"#a559d8", pink:"#d85998"};
+    var current_body_colour = "blue";
+    var current_style_colour = "none";
+
+    function changeBodyColour(self) {
+      current_body_colour = self.innerHTML;
+      document.getElementById("amoebabody").style.backgroundColor = colours[current_body_colour];
+
+      //style colour should default to body colour when none is selected
+      if(current_style_colour === "none"){
+        changeStyleColour();
+      }
+      //ensure that there is always a colour option selected
+      if(!self.classList.contains("activebtn")){
+        self.classList.add("activebtn");
+      }
+    }
+
+    function changeStyleColour(self=1) {
+      var colour;
+      if(self === 1){
+        colour = current_body_colour;
+      }
+      else{
+        current_style_colour = self.innerHTML;
+        colour = current_style_colour;
+      }
+      document.getElementById("spots").style.backgroundImage = `radial-gradient(${colours2[colour]} 30%, transparent 30%), radial-gradient(${colours2[colour]} 30%, transparent 30%)`;
+      document.getElementById("stripes").style.backgroundImage = `repeating-linear-gradient(-45deg, transparent 0px, transparent 20px, ${colours2[colour]} 20px, ${colours2[colour]} 40px)`;
+      //ensure that there is always a colour option selected
+      if(!self.classList.contains("activebtn")){
+        self.classList.add("activebtn");
+      }
+    }
+
+    function changeStyle(self) {
+      var style = "amoeba_style_" + self.innerHTML;
+      var selected = self.classList.contains("activebtn");
+      var styles = document.getElementsByClassName("style");
+      var length = (styles !== null)? styles.length : 0;
+      var i, current;
+      for(i=0; i<length; i++){
+        current = styles[i];
+        current.classList.add("amoeba_none");
+        if(current.classList.contains(style) && selected){
+          current.classList.remove("amoeba_none");
+          current_style = style;
+        }
+      }
+      if(current_style_colour === "none"){
+        changeStyleColour();
+      }
+    }
+
+    function pressButton(self){
+      var groupParent = self.parentNode;
+      var current = groupParent.firstChild;
+      var pressed = self.classList.contains("activebtn");
+
+      // while 'next sibling' is not a null item
+      while(current){
+        if(current.nodeType == 1){ //'element' type
+        current.classList.remove("activebtn");
+        }
+        current = current.nextSibling;
+      }
+
+      if(!pressed){
+        self.classList.add("activebtn");
+      }
+    }
+  </script>
+{% endblock %}

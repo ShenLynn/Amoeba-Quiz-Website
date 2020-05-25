@@ -29,10 +29,11 @@
           <a>LEADERBOARDS</a>
           <a>TOURNAMENT</a>
           <a>STORE</a>
-          {% if current_user.is_anonymous%}
-          <a href="{{ url_for('signup_login') }}">LOGIN/SIGNUP</a>
-          {% else %}
+          {% if current_user.is_authenticated %}
           <a href="{{ url_for('logout') }}">LOGOUT</a>
+          <a href="{{ url_for('profile', username=current_user.username) }}">{{ current_user.username }}</a>
+          {% else %}
+          <a href="{{ url_for('signup_login') }}">LOGIN/SIGNUP</a>
           {% endif %}
         </u1>
       </div>

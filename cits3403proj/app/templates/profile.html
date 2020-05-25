@@ -1,0 +1,116 @@
+{% extends "template.html" %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/amoeba.css')}}">
+<style>
+  .contentflex1 {
+    display: flex;
+    background-color: #f7ebe4;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 20px 20px 0 20px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .contentflex2 {
+    display: flex;
+    background-color: #f7ebe4;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 0px 20px 20px 20px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .userflex {
+    display: flex;
+    flex-direction: column;
+    padding:20px;
+    width: 350px;
+  }
+
+  .listflex {
+    display: flex;
+    flex-direction: column;
+    padding:20px;
+    width: 350px;
+  }
+
+  .listflex ul{
+    list-style-type: none;
+  }
+
+  .listflex li {
+    padding: 3px 0px;
+  }
+</style>
+{% endblock %}
+
+{%block content%}
+<div class="contentflex1">
+  <div class="userflex">
+    <h2> {{ user.username }}'s Profile</h2>
+    <div id="amoeba_box">
+      <div class="amoeba_box_child">
+        <div class="amoeba_ball" id="amoeba1">
+          <div class="amoeba_eye eye_left"></div>
+          <div class="amoeba_eye eye_right"></div>
+          <div class="amoeba_smile"></div>
+          <div
+            class="style amoeba_style_stripes amoeba_none"
+            id="stripes"
+          ></div>
+          <div class="style amoeba_style_spots amoeba_none" id="spots"></div>
+        </div>
+      </div>
+    </div>
+    {% if user==current_user %}
+      <a href="{{ url_for('customamoeba') }}">Customize your amoeba</a>
+    {% endif %}
+  </div>
+
+  <div class="listflex">
+    <h2>{{ user.username }}'s Data</h2>
+    <ul>
+      <li>Date joined: {{ datadic["joindate"] }}</li>
+      {% if datadic["madeattempt"] %}
+      <li>Quizes played: {{ datadic["totalattempts"] }}</li>
+      <li>Highest score: {{ datadic["hiscores"][0] }} on quiz '{{ datadic["hiquizzes"][0] }}'</li>
+      <li>Total score earned: {{ datadic["totalscore"] }}</li>
+      {% else %}
+      <li> </li>
+      <li>This user has not played any quizes yet</li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+<div class="contentflex2">
+  <div class="listflex">
+    <h2>{{ user.username }}'s Favourite Categories</h2>
+    <ul>
+      {% if datadic["madeattempt"] %}
+        {% for i in range(0, datadic["favcatlen"]) %}
+          <li>{{ datadic["favcats"][i] }}: {{ datadic["favcatsplays"][i] }} plays</li>
+        {% endfor %}
+      {% else %}
+        <li> </li>
+        <li>There is no data to show</li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="listflex">
+    <h2>{{ user.username }}'s Highest Scores</h2>
+    <ul>
+      {% if datadic["madeattempt"] %}
+        {% for i in range(0, datadic["hiquizlen"]) %}
+          <li>{{ datadic["hiquizzes"][i] }}: {{ datadic["hiscores"][i] }}</li>
+        {% endfor %}
+      {% else %}
+        <li> </li>
+        <li>There is no data to show</li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
