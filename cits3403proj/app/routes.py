@@ -1,11 +1,16 @@
 from flask import render_template, flash, redirect, url_for, request, json
 from app import app, forms, db
-from app.forms import SignupForm, LoginForm, DeleteQuizForm
+from app.forms import SignupForm, LoginForm, DeleteQuizForm, AddQuizForm, DeleteUserForm, SubmitQuizResults
 from app.models import User, Attempt, Quiz
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
+from werkzeug.utils import secure_filename
 from sqlalchemy import distinct
+<<<<<<< HEAD
 from sqlalchemy.sql import func
+=======
+import os
+>>>>>>> quiz_results
 
 #import testing module
 from app.testing import randomQuiz, randomAttempt, PretendGenQuiz, PretendGenAttempt
@@ -56,41 +61,20 @@ def logout():
 @app.route('/quiz/<quizid>', methods=['POST', 'GET'])
 @login_required
 def quiz(quizid):
-  quiz = Quiz.query.filter_by(id=quizid).first_or_404()
-  questionset = {
-    "questions":[
-    {
-    "question": "Which of these is a virus?",
-      "answers":[
-        "Staphylococcus",
-        "leukemia",
-        "Scoliosis",
-        "chicken pox"
-      ],
-    "answerindex": 3
-    },
-    {
-    "question": "Among these elements, which one has the highest atomic mass?",
-      "answers":[
-        "Helium",
-        "Sodium",
-        "Uranium",
-        "Copper"
-      ],
-    "answerindex": 2
-    },
-    {
-    "question": " Which of these has the longest wave length?",
-      "answers":[
-        "Radio waves",
-        "Visible light",
-        "X-rays",
-      ],
-    "answerindex": 0
-    },
-  ]
-  }
-  return render_template('quiz.html', questionset=questionset, quizname=quiz.quizname, quizcat=quiz.category)
+  resultsform = SubmitQuizResults()
+  quizscore = 0
+  if resultsform.submitResults.data and resultsform.validate_on_submit:
+    attempt = Attempt(user_id = current_user.id, score=quizscore, quiz_id=quizid)
+    db.session.add(attempt)
+    db.session.commit()
+  quiz = Quiz.query.filter_by(id=quizid).first()
+  filename = quiz.filename
+  basedir = os.path.abspath(os.path.dirname(__file__))
+  quiz_dir = os.path.join(basedir, 'static', 'quizzes')
+  file_dir = os.path.join(quiz_dir, filename)
+  with open(file_dir) as json_file:
+    questionset = json.load(json_file)
+  return render_template('quiz.html', questionset=questionset, quizname=quiz.quizname, quizcat=quiz.category, resultsform=resultsform, score=quizscore)
 
 #quiz categories page
 @app.route('/categories', methods=['GET', 'POST'])
@@ -189,3 +173,34 @@ def pretend_attempts():
 def personal():
   return render_template('personal.html')
 
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+  if(current_user.is_admin==False):
+    return redirect(url_for('index')) #only admins can visit this page
+  quizform=AddQuizForm()
+  if quizform.validate_on_submit():
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    quiz_dir = os.path.join(basedir, 'static')
+    quizfile = quizform.quiz.data
+
+    quizfilename = secure_filename(quizfile.filename)
+    # save the quiz file
+    quizfile.save(os.path.join(quiz_dir, 'quizzes', quizfilename))
+
+    flash('Quiz uploaded successfully.')
+    quiz = Quiz(quizname=quizform.quizname.data, category=quizform.category.data, filename=quizfilename, user_id=current_user.id )
+    db.session.add(quiz)
+    db.session.commit()
+    return redirect(url_for('index'))
+  return render_template('uploadquestions.html', quizform=quizform)
+
+@app.route('/users', methods=['GET', 'POST'])
+def users():
+  deluserform = DeleteUserForm()
+  #if(current_user.is_admin==False):
+    #return redirect(url_for('index')) #only admins can visit this page
+  users = User.query.all()
+  if deluserform.submitDelete.data and deluserform.validate_on_submit():
+    db.session.delete(user)
+    db.session.commit()
+  return render_template('usersview.html', users=users, deluserform=deluserform)
