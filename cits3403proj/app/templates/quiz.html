@@ -20,31 +20,39 @@
 />
 
 {% endblock %} {% block content %}
-<h2>This is quiz: {{ quizname }} from category: {{ quizcat }}</h2>
-<div class="quizcontent">
-  <div class="amoeba_ball" id="amoebabody">
-    <div class="amoeba_eye eye_left"></div>
-    <div class="amoeba_eye eye_right"></div>
-    <div class="amoeba_smile"></div>
-    <div class="style amoeba_style_stripes amoeba_none" id="stripes"></div>
-    <div class="style amoeba_style_spots amoeba_none" id="spots"></div>
-  </div>
-  <div class="container">
-    <p id="description">
-      You will be given 5 seconds to answer each question, good luck!
-    </p>
-    <div id="question-container" class="hide">
-      <div id="question">Question</div>
-      <div id="answer-buttons" class="btn-grid"></div>
+<div class="content">
+  <h2 id="quiztitle">
+    This is quiz: {{ quizname }} from category: {{ quizcat }}
+  </h2>
+  <div class="quizcontent">
+    <div class="amoeba_ball" id="amoebabody">
+      <div class="amoeba_eye eye_left"></div>
+      <div class="amoeba_eye eye_right"></div>
+      <div class="amoeba_smile"></div>
+      <div class="style amoeba_style_stripes amoeba_none" id="stripes"></div>
+      <div class="style amoeba_style_spots amoeba_none" id="spots"></div>
     </div>
-    <div class="timer">
-      <span id="minutes">00</span>:
-      <span id="seconds">00</span>
+    <div class="container">
+      <p id="description">
+        You will be given 5 seconds to answer each question, good luck!
+      </p>
+      <div id="question-container" class="hide">
+        <div id="question">Question</div>
+        <div id="answer-buttons" class="btn-grid"></div>
+      </div>
+      <div class="timer">
+        <span id="minutes">00</span>:
+        <span id="seconds">00</span>
+      </div>
+      <div class="controls">
+        <button id="start-btn" class="start-btn btn">Start</button>
+        <button id="next-btn" class="next-btn btn hide">Next</button>
+        <button id="end-btn" class="next-btn btn hide">End</button>
+      </div>
     </div>
-    <div class="controls">
-      <button id="start-btn" class="start-btn btn">Start</button>
-      <button id="next-btn" class="next-btn btn hide">Next</button>
-      <button id="end-btn" class="next-btn btn hide">End</button>
+    <div id="results" class="hide">
+      <h1>Here are the results of the quiz:</h1>
+      <ol id="results_list"></ol>
     </div>
   </div>
 </div>
@@ -52,10 +60,12 @@
   const questionset = JSON.parse('{{questionset | tojson | safe}}');
   const questioncount = questionset.questions.length;
   let score = 0;
+  let answered = [];
   let questionNo = 0;
   var selectedanswerbutton = 0;
 
-  //Control buttons
+  //quiz container elements
+  const container = document.getElementsByClassName('container')[0];
   const description = document.getElementById('description');
   const startbutton = document.getElementById('start-btn');
   const nextbutton = document.getElementById('next-btn');
@@ -69,6 +79,8 @@
   const questiontime = 5;
   secondsdiv = document.getElementById('seconds');
   minutesdiv = document.getElementById('minutes');
+
+  const resultsdiv = document.getElementById('results');
 
   startbutton.addEventListener('click', startGame);
   function startGame() {
@@ -112,7 +124,6 @@
     });
     questionNo++;
   }
-
   //removes question buttons
   function removeQuestions() {
     Array.from(answerbuttons.children).forEach(button => {
@@ -123,14 +134,23 @@
   //when you click the next button
   nextbutton.addEventListener('click', nextQuestion);
   function nextQuestion() {
+    //check if user picked an answer
     if (selectedanswerbutton != 0) {
+      //if right answer
       if (selectedanswerbutton.dataset.correct) {
         score++;
-        console.log('youreright');
+        answered.push('correct');
+      } else {
+        answered.push('wrong');
       }
+    }
+    //if user didn't pick an answer
+    else {
+      answered.push('wrong');
     }
     removeQuestions();
     setQuestions(questionset, questionNo);
+    //reset the selected button
     selectedanswerbutton = 0;
   }
 
@@ -163,6 +183,34 @@
       });
       return;
     }
+  }
+
+  //display questions that were wrong/right
+  endbutton.addEventListener('click', displayResults);
+  function displayResults() {
+    resultslist = document.getElementById('results_list');
+    resultsdiv.classList.remove('hide');
+    container.classList.add('hide');
+    amoeba = document
+      .getElementsByClassName('amoeba_ball')[0]
+      .classList.add('hide');
+    answerindex = 0;
+    //just need to loop through the answered array, display each question, display the user answer,
+    questionset.questions.forEach(q => {
+      questiontext = document.createElement('li');
+      questiontext.classList.add('questionli');
+      questiontext.innerHTML = q.question;
+      resultslist.appendChild(questiontext);
+      result = document.createElement('p');
+      result.innerHTML = answered[answerindex];
+      if (answered[answerindex] === 'correct') {
+        result.classList.add('correct');
+      } else {
+        result.classList.add('wrong');
+      }
+      resultslist.appendChild(result);
+      answerindex++;
+    });
   }
 </script>
 {% endblock %}

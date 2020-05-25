@@ -28,6 +28,10 @@ h1 {
   font-family: 'Merriweather', serif;
 }
 
+.content{
+  background-color: #f7ebe4;
+}
+
 button, .formbutton {
   padding: 20px 60px;
   border-radius: 28px;

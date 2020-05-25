@@ -1,7 +1,8 @@
 :root {
   --hue-neutral: #99dbb4;
-  --hue-wrong: 0;
-  --hue-correct: #b0db7d;
+  --hue-blue: #638be2;
+  --hue-light: #ccd9cc;
+  --hue-green: #b0db7d;
 }
 
 body {
@@ -10,14 +11,32 @@ body {
   margin: 0;
   width: 100vw;
   height: 100vh;
+  background-color: #f7ebe4;
 }
 
-body.correct {
-  --hue: var(--hue-correct);
+.correct {
+  color: green;
+  display: inline-block;
 }
 
-body.wrong {
-  --hue: var(--hue-wrong);
+.wrong {
+  color: red;
+  display: inline-block;
+}
+
+#results_list li {
+  list-style-type: decimal;
+}
+
+#quiztitle {
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-bottom: 30px;
+  font-size: 40px;
+}
+
+.questionli {
+  font-size: 30px;
 }
 
 .quizcontent {
@@ -27,6 +46,9 @@ body.wrong {
   justify-content: center;
   align-content: center;
   position: relative;
+}
+#question {
+  font-size: 30px;
 }
 
 .btn-grid {
@@ -43,26 +65,15 @@ body.wrong {
   color: white;
 }
 
-.btn.wrong {
-  --hue: var(--hue-wrong);
-  color: black;
-}
-
-.btn.correct {
-  --hue: var(--hue-correct);
-  color: black;
-}
-
 .container {
   background-image: linear-gradient(
     to bottom right,
-    var(--hue-correct) 40%,
-    var(--hue-neutral) 100%
+    var(--hue-light) 40%,
+    var(--hue-blue) 100%
   );
   width: 800px;
   max-width: 100%;
   padding: 10px;
-  height: 300px;
   border-radius: 20px;
   box-shadow: 5px 5px 20px rgba($gray, 10%);
   font-size: 24px;
