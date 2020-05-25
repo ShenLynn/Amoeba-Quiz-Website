@@ -40,9 +40,14 @@ button, .formbutton {
 }
 
 button:hover, .formbutton:hover {
-  background-color: #0f1c43;
+  background-color: #638be2;
   transition: 0.4s;
   cursor: pointer;
+}
+
+button:active, .formbutton:active{
+  transform: translateY(3px);
+  box-shadow: 0px 2px rgb(61, 90, 153);
 }
 
 .logo {

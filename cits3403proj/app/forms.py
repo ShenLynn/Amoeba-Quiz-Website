@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.validators import DataRequired, Email, Length, Optional
 
 class SignupForm(FlaskForm):
@@ -15,3 +16,12 @@ class LoginForm(FlaskForm):
 
 class DeleteQuizForm(FlaskForm):
   submitDelete = SubmitField('Delete quiz')
+
+class DeleteUserForm(FlaskForm):
+  submitDelete = SubmitField('Delete user')
+
+class AddQuizForm(FlaskForm):
+  quizname = StringField('Quizname', validators=[DataRequired(), Length(min=1, max=20)])
+  category = StringField('Category', validators=[DataRequired(), Length(min=1, max=20)])
+  quiz = FileField('Document', validators=[FileRequired(), FileAllowed(['json'], 'Only JSON documents!')])
+  submitQuiz = SubmitField('Submit Quiz')

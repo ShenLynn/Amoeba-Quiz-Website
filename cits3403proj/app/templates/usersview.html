@@ -1,0 +1,26 @@
+{% extends "template.html" %} {% block content%}
+<h1>List of Users</h1>
+<table>
+  <tr>
+    <td>id</td>
+    <td>Username</td>
+    <td>Email</td>
+    <td>Is Admin</td>
+  </tr>
+  {% for u in users %}
+  <tr>
+    <td>{{ u.id }}</td>
+    <td>{{ u.username }}</td>
+    <td>{{ u.email }}</td>
+    <td>{{ u.is_admin }}</td>
+    <td>
+      <form method="post" class="tohide">
+        {{ deluserform.hidden_tag() }}
+        <p>{{ deluserform.submitDelete() }}</p>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
