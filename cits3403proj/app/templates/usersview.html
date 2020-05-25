@@ -1,26 +1,60 @@
-{% extends "template.html" %} {% block content%}
-<h1>List of Users</h1>
-<table>
-  <tr>
-    <td>id</td>
-    <td>Username</td>
-    <td>Email</td>
-    <td>Is Admin</td>
-  </tr>
-  {% for u in users %}
-  <tr>
-    <td>{{ u.id }}</td>
-    <td>{{ u.username }}</td>
-    <td>{{ u.email }}</td>
-    <td>{{ u.is_admin }}</td>
-    <td>
-      <form method="post" class="tohide">
-        {{ deluserform.hidden_tag() }}
-        <p>{{ deluserform.submitDelete() }}</p>
-      </form>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+{% extends "template.html" %} 
+{% block head %}
+<style>
+  .tableflex {
+    display: flex;
+    background-color: #f7ebe4;
+    border-radius: 10px;
+    margin:20px;
+    padding:20px;
+  }
+
+  td {
+    text-align: left;
+    padding: 10px 30px 10px 0;
+  }
+
+  td > a {
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #942222;
+    box-shadow: 0px 5px #5f1313;
+    color: #d6d6d6;
+  }
+
+  td > a:hover {
+    color: white;
+  }
+
+  td > a:active {
+    transform: translateY(3px);
+    box-shadow: 0px 2px #5f1313;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<h1 style="text-align: center; padding-top: 20px;">List of Users</h1>
+<div class="tableflex">
+  <table>
+    <tr>
+      <td>id</td>
+      <td>Username</td>
+      <td>Email</td>
+      <td>Is Admin</td>
+    </tr>
+    {% for u in users %}
+    <tr>
+      <td>{{ u.id }}</td>
+      <td>{{ u.username }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.is_admin }}</td>
+      <td>
+        <a href="{{ url_for('deleteuser', userid=u.id) }}">Delete user</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
 
 {% endblock %}
