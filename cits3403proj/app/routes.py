@@ -6,11 +6,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from werkzeug.utils import secure_filename
 from sqlalchemy import distinct
-<<<<<<< HEAD
 from sqlalchemy.sql import func
-=======
 import os
->>>>>>> quiz_results
 
 #import testing module
 from app.testing import randomQuiz, randomAttempt, PretendGenQuiz, PretendGenAttempt
