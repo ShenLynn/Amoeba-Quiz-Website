@@ -15,6 +15,7 @@ class User(UserMixin, db.Model):
   posted_quizes = db.relationship('Quiz', backref = 'postedby', lazy = 'dynamic')
   attempts = db.relationship('Attempt', backref = 'user', lazy = 'dynamic')
   is_admin = db.Column(db.Boolean, default=False, nullable=False)
+  date_joined = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
   def set_password(self, password):
     self.password_hash = generate_password_hash(password)
