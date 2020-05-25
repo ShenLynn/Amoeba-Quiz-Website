@@ -139,7 +139,8 @@
     if (selectedanswerbutton != 0) {
       //if right answer
       if (selectedanswerbutton.dataset.correct) {
-        score++;
+        let timebonus = timeleft *50;
+        score = score + timebonus + 50;
         answered.push('correct');
       } else {
         answered.push('wrong');

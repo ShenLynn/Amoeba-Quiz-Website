@@ -27,6 +27,17 @@
   margin: auto;
   padding-top: 50px;
 }
+.description-box {
+  max-width: 900px;
+  text-align: center;
+  margin: auto;
+  padding-top: 200px;
+}
+
+.description {
+  font-size: 30px;
+  line-height: 40px;
+}
 
 #amoeba_box {
   margin-top: 120px;

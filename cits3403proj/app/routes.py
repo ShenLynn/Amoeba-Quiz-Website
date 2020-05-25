@@ -70,10 +70,10 @@ def quiz(quizid):
 @app.route('/results/<quizid>/<score>', methods=['POST', 'GET'])
 @login_required
 def results(quizid, score):
-  attempt = Attempt(user_id = current_user.id, score=score*500, quiz_id=quizid)
+  attempt = Attempt(user_id = current_user.id, score=score, quiz_id=quizid)
   db.session.add(attempt)
   db.session.commit()
-  return redirect(url_for('personal'))
+  return redirect(url_for('profile', username=current_user.username) )
 
 #quiz categories page
 @app.route('/categories', methods=['GET', 'POST'])
@@ -227,8 +227,8 @@ def upload():
 @login_required
 def users():
   deluserform = DeleteUserForm()
-  #if(current_user.is_admin==False):
-    #return redirect(url_for('index')) #only admins can visit this page
+  if(current_user.is_admin==False):
+    return redirect(url_for('index')) #only admins can visit this page
   users = User.query.all()
   if deluserform.submitDelete.data and deluserform.validate_on_submit():
     db.session.delete(user)
